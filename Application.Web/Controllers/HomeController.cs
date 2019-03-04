@@ -18,6 +18,8 @@ namespace Application.Web.Controllers
         public ConnectionConfig connStrNews = new ConnectionConfig() { ConnectionString = ConfigurationManager.ConnectionStrings["NewsDb"].ConnectionString, DbType = SqlSugar.DbType.SqlServer, IsAutoCloseConnection = true };
 
         private string datetime = DateTime.Now.AddDays(-1).ToShortDateString();
+        private string datebegTime = DateHelper.GetTimeStartByType("Month", DateTime.Now).ToDateString();
+        private string dateendTime = DateHelper.GetTimeEndByType("Month", DateTime.Now).ToDateString();
         public ActionResult Index()
         {
             Task.Run(async () =>
@@ -115,8 +117,8 @@ namespace Application.Web.Controllers
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
-                var begDate = $"{datetime} 00:00:00";
-                var endDate = $"{datetime} 23:59:59";
+                var begDate = $"{datebegTime} 00:00:00";
+                var endDate = $"{dateendTime} 23:59:59";
                 var dt = db.Ado.GetDataTable(@"SELECT TOP 20 
                                                 tb1.area_ID,
                                                 tb2.Peasant_ID,
@@ -179,8 +181,8 @@ namespace Application.Web.Controllers
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
-                var begDate = $"{datetime} 00:00:00";
-                var endDate = $"{datetime} 23:59:59";
+                var begDate = $"{datebegTime} 00:00:00";
+                var endDate = $"{dateendTime} 23:59:59";
                 var dt = db.Ado.GetDataTable(@"SELECT sum(tb2.region_Mu) as regionCount
                                                     FROM xunshi tb1 left join area tb2
                                                     on tb1.area_ID=tb2.area_ID
