@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>登录界面</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <link href="~/Content/login/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/login/iconfont/style.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery.js"></script>
+    <script src="~/Content/js/layer/layer.js"></script>
+</head>
+
+<body style="background:url(/Content/login/images/bg.jpg) no-repeat;">
+
+    <div class="container wrap1" style="height:450px;">
+        <h2 class="mg-b20 text-center">汇众现代化农业服务智慧平台</h2>
+        <div class="col-sm-8 col-md-5 center-auto pd-sm-50 pd-xs-20 main_content">
+            <p class="text-center font16">用户登录</p>
+            <form>
+                <div class="form-group mg-t20">
+                    <i class="icon-user icon_font"></i>
+                    <input type="text" class="login_input" id="username" placeholder="请输入用户名" />
+                </div>
+                <div class="form-group mg-t20">
+                    <i class="icon-lock icon_font"></i>
+                    <input type="password" class="login_input" id="password" placeholder="请输入密码" />
+                </div>
+                <button style="submit" id="btnLogin" type="button" class="login_btn">登 录</button>
+            </form>
+        </div><!--row end-->
+    </div><!--container end-->
+    <script>
+        $(function () {
+            $("#btnLogin").click(function () {
+                if ($("#username").val().length === 0) {
+                    layer.msg('用户名不能为空');
+                    return;
+                }
+
+                if ($("#password").val().length === 0) {
+                    layer.msg('密码不能为空');
+                    return;
+                }
+                $.ajax({
+                    url: '/Login/CheckLogin',
+                    type: 'Post',
+                    dataType: 'JSON',
+                    data: { username: $('#username').val(), password: $('#password').val() },
+                    success: function (res) {
+                        if (res.code === 200) {
+                            window.location.href = '/Home/Index'
+                        } else {
+                            layer.msg(res.msg);
+                        }
+                    },
+                    error: function () {
+                        console.log('服务器异常，请配合后端程序使用');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
