@@ -184,9 +184,17 @@ function flashRoute() {
 
 //全图
 function zoomFull() {
-    var showMap = document.getElementById("map");
-    showMap.style.width = document.documentElement.clientWidth + "px";
-    showMap.style.height = document.documentElement.clientHeight + "px"; 
+    var element = document.getElementById("map");
+    element.style.height = window.screen.height + "px";
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen();
+    }
 }
 
 //放大

@@ -18,7 +18,7 @@ namespace Application.Web
             if (IsCheck)
             {
                 //检测用户是否登录
-                if (CookieHelper.GetCookieValue("user") == null)
+                if (string.IsNullOrEmpty(CookieHelper.GetCookieValue("user")))
                 {
                     filterContext.HttpContext.Response.Redirect("/Login/Index");
                 }
