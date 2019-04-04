@@ -9,8 +9,11 @@
     <link href="~/Content/js/bstable/css/bootstrap-table.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/Security_operation.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/Content/js/artDialog/skins/default.css" type="text/css" />
-    <script src="~/Content/js/laydate.js"></script>
+    <script src="~/Content/js/laydate/laydate.js"></script>
     <script src="~/Content/js/Home_page.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <!--signalr自动生成的脚本-->
+    <script src="~/signalr/hubs"></script>
     <meta charset="UTF-8">
     <title>发展农村经济  科技改变农业</title>
 
@@ -292,8 +295,8 @@
                                 <span class="map_tool" onclick="zoomIn()">
                                     <a class="map_tool_inner" title="缩小" style="background-position-x:-72px"></a>
                                 </span>
-                                <span class="map_tool" onclick="zhuanti()">
-                                    <a class="map_tool_inner display_type_btn" title="专题地图" style="background-position-x:-180px"></a>
+                                <span class="map_tool" id="btnZhuanTi">
+                                    <a class="map_tool_inner" title="专题地图" style="background-position-x:-180px"></a>
                                 </span>
                                 <span class="map_tool">
                                     <a class="map_tool_inner city_chose_btn" title="城市定位" style="background-position-x:-432px"></a>
@@ -301,23 +304,23 @@
                                 <span class="map_tool" id="btnBuffer">
                                     <a class="map_tool_inner" title="项目" style="background-position-x:-216px"></a>
                                 </span>
-                                <span class="map_tool">
-                                    <a class="map_tool_inner addition_check_btn check_btn" title="地址检索" style="background-position-x:-252px"></a>
-                                </span>
+                                @*<span class="map_tool">
+                                        <a class="map_tool_inner addition_check_btn check_btn" title="地址检索" style="background-position-x:-252px"></a>
+                                    </span>*@
                                 @*<span class="map_tool">
                                         <a class="map_tool_inner chemistry_check_btn check_btn" onclick="chemistryCheck()" title="危化品检索" style="background-position-x:-288px"></a>
                                     </span>
                                     <span class="map_tool">
                                         <a class="map_tool_inner enterprise_check_btn check_btn" onclick="enterpriseCheck()" title="企业检索" style="background-position-x:-324px"></a>
                                     </span>*@
-                                <span class="map_tool">
-                                    <a class="map_tool_inner car_check_btn check_btn" onclick="carCheck()" title="车辆检索" style="background-position-x:-360px"></a>
+                                <span class="map_tool" id="btnCarCheck">
+                                    <a class="map_tool_inner car_check_btn check_btn" title="车辆检索" style="background-position-x:-360px"></a>
                                 </span>
-                                <span class="map_tool">
-                                    <a class="map_tool_inner" onclick="Search()" title="搜索" style="background-position-x:-468px"></a>
-                                </span>
+                                @*<span class="map_tool">
+                                        <a class="map_tool_inner" onclick="Search()" title="搜索" style="background-position-x:-468px"></a>
+                                    </span>*@
                                 <span class="map_tool" id="btnReset">
-                                    <a class="map_tool_inner" title="重置" style="background-position-x:-396px"></a>
+                                    <a class="map_tool_inner" title="重置" onclick="cancel()" style="background-position-x:-396px"></a>
                                 </span>
                             </div>
                         </div>
@@ -444,7 +447,7 @@
                                         <th>服务时间</th>
                                     </tr>
                                 </thead>
-                                0
+
                                 <tbody class="area_list">
                                     <script id="areaTpl" type="text/html">
                                         <% for(var i = 0; i < areaList.length; i++){ %>
@@ -593,46 +596,22 @@
                                 <button class="search_btn">开始检索</button>
                             </div>
                             <!--检索结果板块-->
-                            <div class="search_sesult_box">
-                                <ul class="search_result">
-                                    <li class="search_result_add">资阳汽车客运中心</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_eddit" title="操作"></li>
-                                    <li class="search_result_road">资阳市>雁江区>书台路与骏兴路交叉口西侧</li>
-                                </ul>
-                                <ul class="search_result">
-                                    <li class="search_result_add">成都大学金牛校区</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_eddit" title="操作"></li>
-                                    <li class="search_result_road">北京市>朝阳>东六巷</li>
-                                </ul>
-                                <ul class="search_result">
-                                    <li class="search_result_add">二十二中</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_eddit" title="操作"></li>
-                                    <li class="search_result_road">北京市>朝阳>育苗路</li>
-                                </ul>
-                                <ul class="search_result">
-                                    <li class="search_result_add">红盛生态园</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_eddit" title="操作"></li>
-                                    <li class="search_result_road">北京市>xxx>惠王陵东路</li>
-                                </ul>
-                                <ul class="search_result">
-                                    <li class="search_result_add">资阳汽车客运中心</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_eddit" title="操作"></li>
-                                    <li class="search_result_road">资阳市>雁江区>书台路与骏兴路交叉口西侧</li>
-                                </ul>
-                                <ul class="search_result">
-                                    <li class="search_result_add">黄忠公园</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_eddit" title="操作"></li>
-                                    <li class="search_result_road">北京市>朝阳>同德街</li>
-                                </ul>
+                            <div class="search_sesult_box _dip_area">
+                                <script id="dipareaTpl" type="text/html">
+                                    <% for(var i = 0; i < dipareaList.length; i++){ %>
+                                    <% var item = dipareaList[i]; %>
+                                    <ul class="search_result" style="cursor:pointer;" onclick="loadDipArea(<%=item.AREA_ID%>,<%=item.DIP_ID%>)">
+                                        <li class="search_result_add"><%=item.OP_DATE%> <%=item.DIP_name%> <%=item.DIP_yanse%></li>
+                                        <li class="search_location" title="定位"></li>
+                                        <li class="search_eddit" title="操作"></li>
+                                        <li class="search_result_road"><%=item.area_xiang%>><%=item.area_cun%></li>
+                                    </ul>
+                                    <% } %>
+
+                                </script>
                             </div>
                             <!--翻页模块-->
-                            <div class="tcdPageCode"></div>
+                            @*<div class="tcdPageCode"></div>*@
                         </div>
                         <!--危化品检索切换04-->
                         <div class="dataAllBorder02 chemistry_check_in" id="chemistry_check_in" style="display: none;position: relative">
@@ -656,7 +635,7 @@
                                     <ul class="search_result">
                                         <li class="search_result_add danger_result"><%=item.op_date%></li>
 
-                                        <li class="search_result_car" onclick="projectArea(<%=item.project_ID%>)"><%=item.project_name%></li>
+                                        <li class="search_result_car" style="width:370px;cursor:pointer;" onclick="projectArea(<%=item.project_ID%>)"><%=item.project_name%></li>
                                     </ul>
                                     <% } %>
                                 </script>
@@ -736,59 +715,24 @@
                             <div class="analysis" style="height: 34px;">车辆检索：</div>
                             <div class="search_plate_box">
                                 <ul class="search_separate">
-                                    <li class="search_title">车牌号码：</li>
-                                    <li class="search_input_box"><input class="search_input" type="text"></li>
+                                    <li class="search_title">查询日期：</li>
+                                    <li class="search_input_box"><input class="search_input" id="txt_carDate" type="text"></li>
                                 </ul>
-                                <ul class="search_separate">
-                                    <li class="search_title">车主姓名：</li>
-                                    <li class="search_input_box"><input class="search_input" type="text"></li>
-                                </ul>
-                                <button class="search_btn">检索</button>
                             </div>
                             <!--检索结果板块-->
-                            <div class="search_sesult_box">
-                                <ul class="search_result">
-                                    <li class="search_result_add">川A·K5H12（陈浩）</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_guiji" title="轨迹回放"></li>
-                                    <li class="search_result_car car_personal">福特（福克斯两厢）</li>
-                                    <li class="search_result_car car_time">乘用车（5座)</li>
-                                </ul>
-                                <ul class="search_result">
-                                    <li class="search_result_add">川A·14AG2（张正涛）</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_guiji" title="轨迹回放"></li>
-                                    <li class="search_result_car car_personal">福特（金牛座）</li>
-                                    <li class="search_result_car car_time">乘用车（5座)</li>
-                                </ul>
-                                <ul class="search_result">
-                                    <li class="search_result_add">川B·2563K（李雪）</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_guiji" title="轨迹回放"></li>
-                                    <li class="search_result_car car_personal">上海大众（迈腾）</li>
-                                    <li class="search_result_car car_time">乘用车（5座)</li>
-                                </ul>
-                                <ul class="search_result">
-                                    <li class="search_result_add">川A·SH273（刘红）</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_guiji" title="轨迹回放"></li>
-                                    <li class="search_result_car car_personal">菲亚特（菲翔）</li>
-                                    <li class="search_result_car car_time">乘用车（5座)</li>
-                                </ul>
-                                <ul class="search_result">
-                                    <li class="search_result_add">川A·K5H12（陈浩）</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_guiji" title="轨迹回放"></li>
-                                    <li class="search_result_car car_personal">奔驰（C200）</li>
-                                    <li class="search_result_car car_time">乘用车（5座)</li>
-                                </ul>
-                                <ul class="search_result">
-                                    <li class="search_result_add">川A·K5H12（张起国）</li>
-                                    <li class="search_location" title="定位"></li>
-                                    <li class="search_guiji" title="轨迹回放"></li>
-                                    <li class="search_result_car car_personal">东风商用车（天龙）</li>
-                                    <li class="search_result_car car_time">载货卡车（100t)</li>
-                                </ul>
+                            <div class="search_sesult_box car_list">
+                                <script id="carTpl" type="text/html">
+                                    <% for(var i = 0; i < carList.length; i++){ %>
+                                    <% var item=carList[i]%>
+                                    <ul class="search_result" style="cursor:pointer;" onclick="GetTrail(<%=item.nongji_ID%>)">
+                                        <li class="search_result_add"><%=item.nongji_name%></li>
+                                        <li class="search_location" title="定位"></li>
+                                        <li class="search_guiji" title="轨迹回放"></li>
+                                        <li class="search_result_car car_personal"><%=item.nongjitype_name%></li>
+                                        <li class="search_result_car car_time">乘用车（5座)</li>
+                                    </ul>
+                                    <% } %>
+                                </script>
                             </div>
                             <!--翻页模块-->
                             <div class="car_tcdPageCode"></div>
@@ -1462,57 +1406,7 @@
         }
 
         function BootstrapTable() {
-            $('#table').bootstrapTable({
-                method: "get",
-                striped: true,
-                singleSelect: false,
-                url: "/Content/json/DGCar.json",
-                dataType: "json",
-                pagination: true, //分页
-                pageSize: number,
-                pageNumber: 1,
-                search: false, //显示搜索框
-                contentType: "application/x-www-form-urlencoded",
-                queryParams: null,
-                columns: [
-                    {
-                        title: '车牌号',
-                        field: 'carno',
-                        width: 80,
-                        align: 'center',
-                        valign: 'middle'
-                    },
-                    {
-                        title: '服务机构',
-                        field: 'company',
-                        align: 'center',
-                        valign: 'middle'
-                    },
 
-                    {
-                        title: '行驶速度',
-                        field: 'content',
-                        align: 'center'
-                    },
-
-                    {
-                        title: '车辆位置',
-                        field: 'speed',
-                        width: 80,
-                        align: 'center'
-                    },
-                    {
-                        title: '操作',
-                        field: 'load',
-                        align: 'center',
-                        formatter: function (value, row) {
-                            var d = '<a  href="javascript:void(0)" title="" onclick="analiysis(\'' + row.id + '\')">车辆定位</a> ';
-                            return d;
-                        }
-                    }
-
-                ]
-            });
             $('#table1').bootstrapTable({
                 method: "get",
                 striped: true,
@@ -1674,49 +1568,127 @@
 
     <!--轨迹回放时间日期选择-->
     <script>
-        !function () {
-            laydate.skin('danlan');//切换皮肤，请查看skins下面皮肤库
-            laydate({ elem: '#demo' });
-            laydate({ elem: '#demo1' });//绑定元素
-        }();
-        //日期范围限制
-        var start = {
-            elem: '#start',
-            format: 'YYYY-MM-DD',
-            min: laydate.now(), //设定最小日期为当前日期
-            max: '2099-06-16', //最大日期
-            istime: true,
-            istoday: false,
-            choose: function (datas) {
-                end.min = datas; //开始日选好后，重置结束日的最小日期
-                end.start = datas //将结束日的初始值设定为开始日
-            }
-        };
+        //!function () {
+        //    laydate.skin('danlan');//切换皮肤，请查看skins下面皮肤库
+        //    laydate({ elem: '#demo' });
+        //    laydate({ elem: '#demo1' });//绑定元素
+        //}();
+        ////日期范围限制
+        //var start = {
+        //    elem: '#start',
+        //    format: 'YYYY-MM-DD',
+        //    min: laydate.now(), //设定最小日期为当前日期
+        //    max: '2099-06-16', //最大日期
+        //    istime: true,
+        //    istoday: false,
+        //    choose: function (datas) {
+        //        end.min = datas; //开始日选好后，重置结束日的最小日期
+        //        end.start = datas //将结束日的初始值设定为开始日
+        //    }
+        //};
 
-        var end = {
-            elem: '#end',
-            format: 'YYYY-MM-DD',
-            min: laydate.now(),
-            max: '2099-06-16',
-            istime: true,
-            istoday: false,
-            choose: function (datas) {
-                start.max = datas; //结束日选好后，充值开始日的最大日期
+        //var end = {
+        //    elem: '#end',
+        //    format: 'YYYY-MM-DD',
+        //    min: laydate.now(),
+        //    max: '2099-06-16',
+        //    istime: true,
+        //    istoday: false,
+        //    choose: function (datas) {
+        //        start.max = datas; //结束日选好后，充值开始日的最大日期
+        //    }
+        //};
+        //laydate(start);
+        //laydate(end);
+        //function edit() {
+        //    layer.open({
+        //        type: 2,
+        //        title: '存储详情',
+        //        shade: 0.5,
+        //        skin: 'layui-layer-rim',
+        //        area: ['700px', '400px'],
+        //        shadeClose: true,
+        //        closeBtn: 1,
+        //        content: 'saveFindTail.html'
+        //    });
+        //}
+
+    </script>
+
+
+    <script>
+        $(function () {
+            var chat = $.connection.myHub;
+            chat.client.sendMessage = function (data) {
+                $("#table").bootstrapTable('destroy');
+                $('#table').bootstrapTable({
+                    striped: true,
+                    singleSelect: false,
+                    data: data,
+                    dataType: "json",
+                    pagination: true, //分页
+                    pageSize: number,
+                    pageNumber: 1,
+                    columns: [
+                        {
+                            title: '车牌号',
+                            field: 'nongji_name',
+                            width: 120,
+                            align: 'center',
+                            valign: 'middle'
+                        },
+                        {
+                            title: '服务机构',
+                            field: 'nongji_name',
+                            align: 'center',
+                            valign: 'middle',
+                            formatter: function (value, row, index) {
+                                return "汇众基业农业科技有限公司";
+                            }
+                        },
+
+                        {
+                            title: '行驶速度',
+                            field: 'shebei_sudu',
+                            align: 'center'
+                        },
+
+                        {
+                            title: '车辆位置',
+                            field: 'speed',
+                            width: 80,
+                            align: 'center',
+                            formatter: function (value, row, index) {
+                                return "<span>" + row.shebei_jingdu + "," + row.shebei_weidu; +"</span>";
+                            }
+                        },
+                        {
+                            title: '操作',
+                            field: 'load',
+                            align: 'center',
+                            formatter: function (value, row) {
+                                var d = '<a  href="javascript:void(0)" title="" onclick="theLocation(\'' + row.shebei_jingdu + '\',\'' + row.shebei_weidu + '\')">车辆定位</a> ';
+                                return d;
+                            }
+                        }
+
+                    ]
+                });
+            };
+            chat.client.hello = function (data) {
             }
-        };
-        laydate(start);
-        laydate(end);
-        function edit() {
-            layer.open({
-                type: 2,
-                title: '存储详情',
-                shade: 0.5,
-                skin: 'layui-layer-rim',
-                area: ['700px', '400px'],
-                shadeClose: true,
-                closeBtn: 1,
-                content: 'saveFindTail.html'
+            //开启链接
+            $.connection.hub.start().done(function () {
+                console.log("webSocket已开启...");
             });
+        });
+        // 用经纬度设置地图中心点
+        function theLocation(longitude, latitude) {
+            map.clearOverlays();
+            var new_point = new BMap.Point(longitude, latitude);
+            var marker = new BMap.Marker(new_point);
+            map.addOverlay(marker);
+            map.panTo(new_point);
         }
     </script>
 </body>

@@ -69,9 +69,9 @@ $(".search_guiji").click(function () {
 $(".close_playback").click(function () {
     $(".trajectory_box").hide();
 });
-$("#btnBuffer").click(function () {
-    $("#divBufferSetting").show();
-});
+//$("#btnBuffer").click(function () {
+//    $("#divBufferSetting").show();
+//});
 $(".total_chose_pl").click(function () {
     $(".total_chose_box").show()
 })

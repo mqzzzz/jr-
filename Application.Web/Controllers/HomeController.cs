@@ -1,9 +1,11 @@
-﻿using SqlSugar;
+﻿using Microsoft.AspNet.SignalR;
+using SqlSugar;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,6 +18,40 @@ namespace Application.Web.Controllers
 
         public ActionResult Index()
         {
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    try
+                    {
+                        using (SqlSugarClient db = new SqlSugarClient(connStr))
+                        {
+                            var dt = db.Ado.GetDataTable(@" select 
+                                                            a.[nongji_ID],
+                                                            shebei_date,
+                                                            shebei_jingdu,
+                                                            shebei_weidu,
+                                                            shebei_sudu,
+                                                            nongji_name
+                                                            from [sbpfallT] as a 
+                                                            left join nongji nj 
+                                                            on a.nongji_ID=nj.nongji_ID
+                                                            where shebei_date = (select max(b.shebei_date) 
+                                                            from [sbpfallT] as b  
+                                                            where a.[nongji_ID] = b.[nongji_ID] ) 
+                                                            group by  a.[nongji_ID],shebei_date,shebei_jingdu,shebei_weidu,shebei_sudu,nongji_name 
+                                                            order by shebei_date desc");
+                            await GlobalHost.ConnectionManager.GetHubContext<MyHub>().Clients.All.sendMessage(dt);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    await Task.Delay(2000);
+                }
+            });
             return View();
         }
         public ActionResult Contact() => View();
@@ -29,7 +65,7 @@ namespace Application.Web.Controllers
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
                 int i = 0;
-                var dt = db.Ado.GetDataTable("select top 4 * from xunshi where Photo1 is not null or Photo2 is not null order by op_date desc");
+                var dt = db.Ado.GetDataTable("select top 4 * from xunshi where Photo1 is not null or Photo2 is not null  order by op_date desc");
                 foreach (DataRow dr in dt.Rows)
                 {
                     try
@@ -86,18 +122,22 @@ namespace Application.Web.Controllers
                                               FROM xunshi tb1 left join area tb2 
                                                 on tb1.area_ID=tb2.area_ID
                                               left join Peasant tb3 
-                                                on tb2.Peasant_ID=tb3.Peasant_ID order by tb1.op_date desc");
-                var dt2 = db.Ado.GetDataTable(@"SELECT 
+                                                on tb2.Peasant_ID=tb3.Peasant_ID 
+                                            where CONVERT(varchar(100), tb1.op_date, 102)>=CONVERT(varchar(100), DateAdd(dd,-2,getdate()), 102)
+                                            order by tb2.region_Mu desc");
+                var dt2 = db.Ado.GetDataTable(@"SELECT top 4
                                                 min(tb1.area_ID) as area_ID,
                                                 min(tb1.op_date) as op_date,
                                                 min(tb3.Peasant_name) as Peasant_name,
                                                 min(tb3.Peasant_tep) as Peasant_tep,
                                                 min(tb2.area_xiang) as area_xiang,
                                                 sum(tb2.region_Mu) as region_Mu
-                                              FROM xunshi tb1 left join area tb2 
+                                                FROM xunshi tb1 left join area tb2 
                                                 on tb1.area_ID=tb2.area_ID
-                                              left join Peasant tb3 
-                                                on tb2.Peasant_ID=tb3.Peasant_ID group by tb2.Peasant_ID");
+                                                left join Peasant tb3 
+                                                on tb2.Peasant_ID=tb3.Peasant_ID
+                                                where CONVERT(varchar(100), tb1.op_date, 102)>=CONVERT(varchar(100), DateAdd(dd,-2,getdate()), 102)
+                                                 group by tb2.Peasant_ID order by region_Mu desc");
                 var jsonData = new { dt1 = dt, dt2 = dt2 };
                 return Success(jsonData);
             }
@@ -120,6 +160,7 @@ namespace Application.Web.Controllers
                                                 FROM xunshi tb1 
                                                 left join DIP tb2 on tb1.DIP_Id = tb2.DIP_Id
                                                 left join area tb3 on tb1.area_ID = tb3.area_ID 
+ where tb1.DIP_Id<>6 and CONVERT(varchar(100), tb1.op_date, 102)>=CONVERT(varchar(100), DateAdd(dd,-10,getdate()), 102)
                                                 order by op_date desc");
                 return Success(dt);
             }
@@ -134,7 +175,8 @@ namespace Application.Web.Controllers
             {
                 var dt = db.Ado.GetDataTable(@"SELECT sum(tb2.region_Mu) as regionCount
                                                     FROM xunshi tb1 left join area tb2
-                                                    on tb1.area_ID=tb2.area_ID");
+                                                    on tb1.area_ID=tb2.area_ID
+													where CONVERT(varchar(100), tb1.op_date, 102)>=CONVERT(varchar(100), DateAdd(dd,-2,getdate()), 102)");
                 return Success(dt);
             }
         }
@@ -158,7 +200,26 @@ namespace Application.Web.Controllers
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
-                var dt = db.Ado.GetDataTable(@"SELECT * FROM area ");
+                var dt = db.Ado.GetDataTable(@" SELECT 
+                                                TB1.OP_DATE,
+                                                TB1.AREA_ID,
+                                                TB1.DIP_ID,
+                                                area_zuobiao,
+                                                area_mubiaojingdu,
+                                                area_mubiaoweidu,
+                                                area_xiang,
+                                                area_cun,
+                                                DIP_name,
+                                                DIP_yanse 
+                                                FROM  
+                                                (SELECT TOP 1000 MIN([xunshi_ID]) AS XUNSHI_ID
+                                                  ,MIN([op_date]) AS OP_DATE
+                                                  ,MIN([area_ID]) AS AREA_ID
+                                                  ,MIN([DIP_Id]) AS DIP_ID
+                                              FROM [AgricultureData].[dbo].[xunshi] where DIP_Id<>6 
+                                              GROUP BY area_ID,DIP_Id   ORDER BY OP_DATE DESC) AS TB1 
+                                                JOIN area TB2 ON TB1.AREA_ID=TB2.area_ID
+                                                JOIN DIP TB3 ON TB1.DIP_ID=TB3.DIP_Id");
                 return Success(dt);
             }
         }
@@ -185,6 +246,35 @@ namespace Application.Web.Controllers
                                                 on tb1.project_ID=tb2.project_ID 
                                              left join area tb3
                                                 on tb2.area_ID=tb3.area_ID where tb1.project_Id=@projectId", new { projectId = projectId });
+                return Success(dt);
+            }
+        }
+        public ActionResult GetNongJiList()
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var dt = db.Ado.GetDataTable(@"select 
+                                                tb2.*,
+                                                tb3.nongjitype_name 
+                                                from(SELECT nongji_ID FROM sbpfallT group by nongji_ID) as tb1
+                                                left join nongji tb2 on tb1.nongji_ID = tb2.nongji_ID
+                                                left join nongjitype tb3 on tb2.nongjitype_ID = tb3.nongjitype_ID");
+                return Success(dt);
+            }
+
+        }
+        /// <summary>
+        /// 根据农机ID和时间范围获取农机轨迹
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetNongjiTrail(int nongjiId, DateTime datetime)
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var begdate = datetime.ToShortDateString() + " 00:00:00";
+                var enddate = datetime.ToShortDateString() + " 23:59:59";
+                var dt = db.Ado.GetDataTable(@"select * from sbpfallT where nongji_ID=@nongjiId and shebei_date>=@begdate and shebei_date<=@enddate",
+                    new { nongjiId, begdate, enddate });
                 return Success(dt);
             }
         }

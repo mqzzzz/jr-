@@ -603,7 +603,7 @@ html{
     background-color: #00b7e9
 }
 .search_sesult_box{
-    height: 63%;
+    height: 82%;
     overflow-y: auto;
     width: 100%;
     border-top: rgba(61,123,186,0.6) 2px solid;

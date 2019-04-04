@@ -1,10 +1,10 @@
 ﻿var page;
-var data;
-var map = new BMap.Map("map");   
-map.centerAndZoom(new BMap.Point(113.938726, 33.832453), 13);    
+var data, dipAreaData;
+var map = new BMap.Map("map");
+map.centerAndZoom(new BMap.Point(113.938726, 33.832453), 13);
 map.enableScrollWheelZoom();
-map.addControl(new BMap.NavigationControl()); 
-map.addControl(new BMap.MapTypeControl()); 
+map.addControl(new BMap.NavigationControl());
+map.addControl(new BMap.MapTypeControl());
 var mapStyle = {
     style: "dark"
 };
@@ -17,6 +17,10 @@ map.setCurrentCity("漯河市");
             page.initData();
         },
         bind: function () {
+            laydate.render({
+                elem: '#txt_carDate'
+                , value: getNowFormatDate()
+            });
             $("#btnBuffer").click(function () {
                 $(".check_increase").addClass("check_increase_act");
                 $(".check_decrease").hide();
@@ -44,6 +48,52 @@ map.setCurrentCity("漯河市");
                 map.clearOverlays();
                 page.drawArea(data, 'green');
             });
+            $("#btnZhuanTi").click(function () {
+                $(".check_increase").addClass("check_increase_act");
+                $(".check_decrease").hide();
+                $(".addition_check_in").show().siblings().hide();
+                $.ajax({
+                    url: '/Home/GetDipArea',
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function (res) {
+                        if (res.code === 200) {
+                            dipAreaData = res.data;
+                            $('._dip_area').html(
+                                template('dipareaTpl', { dipareaList: res.data })
+                            );
+                        } else {
+                            console.warn(res.msg);
+                        }
+                    },
+                    error: function () {
+                        console.log('服务器异常，请配合后端程序使用');
+                    }
+                });
+            });
+
+            $("#btnCarCheck").click(function () {
+                $(".check_increase").addClass("check_increase_act");
+                $(".check_decrease").hide();
+                $("#car_check_in").show().siblings().hide();
+                $.ajax({
+                    url: '/Home/GetNongJiList',
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function (res) {
+                        if (res.code === 200) {
+                            $('.car_list').html(
+                                template('carTpl', { carList: res.data })
+                            );
+                        } else {
+                            console.warn(res.msg);
+                        }
+                    },
+                    error: function () {
+                        console.log('服务器异常，请配合后端程序使用');
+                    }
+                });
+            });
         },
         initData: function () {
             InitMapArea();
@@ -69,6 +119,9 @@ map.setCurrentCity("漯河市");
             }
         },
         fun: function (i, xy, arr, wb, ys) {
+            ys = ys == '' ? "Green" : ys;
+            if (ys.indexOf(",") != -1)
+                ys = "rgba(" + ys + ")";
             //创建经纬度数组
             eval("var secRingCenter" + i + " = new BMap.Point(" + xy + ")");
             eval("var secRing" + i + " = [" + arr + "]");
@@ -188,7 +241,7 @@ function InitRegionCount() {
             if (res.code === 200) {
                 result = res.data;
                 $('.data_show_box').html(
-                    template('regionTpl', { regionCount: result[0].regionCount.toString().split('') })
+                    template('regionTpl', { regionCount: result[0].regionCount.toString().split('.')[0].split('') })
                 );
             } else {
                 console.warn(res.msg);
@@ -218,4 +271,68 @@ function projectArea(projectId) {
             console.log('服务器异常，请配合后端程序使用');
         }
     });
+}
+
+function loadDipArea(areaId, dipId) {
+    $.each(dipAreaData, function (i, item) {
+        if (item.AREA_ID == areaId && item.DIP_ID == dipId) {
+            map.clearOverlays();
+            var points = [];
+            var point = item.area_zuobiao;
+            var pointArr = point.split(';');
+            pointArr = pointArr.filter(function (s) {
+                return s && s.trim();
+            });
+            if (pointArr != null && pointArr != '') {
+                for (var j = 0; j < pointArr.length; j++) {
+                    points.push("new BMap.Point(" + pointArr[j].split(',')[1] + "," + pointArr[j].split(',')[0] + ")");
+                }
+            }
+            page.fun(i, "" + item.area_mubiaojingdu + "," + item.area_mubiaoweidu + "", "" + points.toString() + "", '' + item.Peasant_name + '', '' + item.DIP_yanse + '');
+        }
+    });
+}
+
+function GetTrail(nongjiId) {
+    map.clearOverlays();
+    $.ajax({
+        url: '/Home/GetNongjiTrail?nongjiId=' + nongjiId + '&datetime=' + $("#txt_carDate").val(),
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (res) {
+            if (res.code === 200) {
+                map.clearOverlays();
+                var data = res.data;
+                var points = [];
+                for (var i = 0; i < data.length; i++) {
+                    points.push(new BMap.Point(data[i].shebei_jingdu, data[i].shebei_weidu));
+                }
+                var polyline = new BMap.Polyline(points,
+                    { strokeColor: "#FFFF00", strokeWeight: 6, strokeOpacity: 0.5 }
+                );
+                map.addOverlay(polyline);
+            } else {
+                console.warn(res.msg);
+            }
+        },
+        error: function () {
+            console.log('服务器异常，请配合后端程序使用');
+        }
+    });
+}
+
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
 }
