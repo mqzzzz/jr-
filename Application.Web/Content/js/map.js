@@ -128,30 +128,59 @@ map.setCurrentCity("漯河市");
             //创建多边形
             eval("var secRingPolygon" + i + "= new BMap.Polygon(secRing" + i + ", {fillColor: \"" + ys + "\",strokeColor: \"" + ys + "\", strokeWeight: 2})");
             //添加多边形到地图上
+            showText(eval("secRingPolygon" + i), wb, eval("secRingCenter" + i + ""));
+
             map.addOverlay(eval("secRingPolygon" + i));
-            //给多边形添加鼠标事件
-            eval("secRingPolygon" + i).addEventListener("mouseover", function () {//鼠标经过时
-                eval("secRingPolygon" + i).setStrokeColor("red"); //多边形边框为红色
-                map.addOverlay(eval("secRingLabel" + i)); //添加多边形遮照
-            });
-            eval("secRingPolygon" + i).addEventListener("mouseout", function () {
-                eval("secRingPolygon" + i).setStrokeColor(ys);
-                map.removeOverlay(eval("secRingLabel" + i));
-            });
-            eval("secRingPolygon" + i).addEventListener("click", function () {
-                map.zoomIn();
-                eval("secRingPolygon" + i).setStrokeColor(ys);
-                map.setCenter(eval("secRingCenter" + i));
-            });
-            //创建标签
-            eval("var secRingLabel" + i + "= new BMap.Label(\"<b>" + wb + "</b>\", {offset: new BMap.Size(0, 0), position: secRingCenter" + i + "})");
-            eval("secRingLabel" + i).setStyle({
-                "z-index": "999999", "padding": "2px", "border": "1px solid #ccff00", "color": "white",
-            });
+            ////给多边形添加鼠标事件
+            //eval("secRingPolygon" + i).addEventListener("mouseover", function () {//鼠标经过时
+            //    eval("secRingPolygon" + i).setStrokeColor("red"); //多边形边框为红色
+            //    map.addOverlay(eval("secRingLabel" + i)); //添加多边形遮照
+            //});
+            //eval("secRingPolygon" + i).addEventListener("mouseout", function () {
+            //    eval("secRingPolygon" + i).setStrokeColor(ys);
+            //    map.removeOverlay(eval("secRingLabel" + i));
+            //});
+            //eval("secRingPolygon" + i).addEventListener("click", function () {
+            //    map.zoomIn();
+            //    eval("secRingPolygon" + i).setStrokeColor(ys);
+            //    map.setCenter(eval("secRingCenter" + i));
+            //});
+            ////创建标签
+            //eval("var secRingLabel" + i + "= new BMap.Label(\"<b>" + wb + "</b>\", {offset: new BMap.Size(0, 0), position: secRingCenter" + i + "})");
+            //eval("secRingLabel" + i).setStyle({
+            //    "z-index": "999999", "padding": "2px", "border": "1px solid #ccff00", "color": "white",
+            //});
         }
     };
     page.init();
 })(document, window, jQuery);
+
+//显示信息
+function showText(polygon, pName, point) {
+    //或的多边形的所有顶点
+    //var point = getCenterPoint(polygon.getPath());
+    //获得中心点
+    var label = new BMap.Label(pName, { offset: new BMap.Size(-40, -25), position: point });
+    label.setStyle({ color: "#fff", fontSize: "14px", backgroundColor: "0.05", border: "0", fontWeight: "bold" });//对label 样式隐藏    
+    polygon.addEventListener('mouseover', function () { map.addOverlay(label); });
+    polygon.addEventListener('mouseout', function () { map.removeOverlay(label); });
+}
+function getCenterPoint(path) {
+
+    var x = 0.0;
+    var y = 0.0;
+    for (var i = 0; i < path.length; i++) {
+        x = x + parseFloat(path[i].lng);
+        y = y + parseFloat(path[i].lat);
+    }
+    x = x / path.length;
+    y = y / path.length;
+
+
+    return new BMap.Point(x, y);
+
+}
+
 function InitMapArea() {
     $.ajax({
         url: '/Home/GetAllArea',
@@ -220,9 +249,11 @@ function InitDIP() {
         success: function (res) {
             if (res.code === 200) {
                 result = res.data;
-                $('.message_scroll_box').html(
-                    template('dipTpl', { dipList: res.data })
-                );
+                if (res.data != null) {
+                    $('.message_scroll_box').html(
+                        template('dipTpl', { dipList: res.data })
+                    );
+                }
             } else {
                 console.warn(res.msg);
             }
@@ -240,9 +271,11 @@ function InitRegionCount() {
         success: function (res) {
             if (res.code === 200) {
                 result = res.data;
-                $('.data_show_box').html(
-                    template('regionTpl', { regionCount: result[0].regionCount.toString().split('.')[0].split('') })
-                );
+                if (res.data[0].regionCount != null) {
+                    $('.data_show_box').html(
+                        template('regionTpl', { regionCount: result[0].regionCount.toString().split('.')[0].split('') })
+                    );
+                }
             } else {
                 console.warn(res.msg);
             }

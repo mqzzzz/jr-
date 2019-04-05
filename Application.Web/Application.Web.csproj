@@ -171,6 +171,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\FarmerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -181,12 +182,14 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Util\Aes.cs" />
     <Compile Include="Util\CookieHelper.cs" />
+    <Compile Include="Util\DateHelper.cs" />
     <Compile Include="Util\Extensions\Extensions.Convert.cs" />
     <Compile Include="Util\Extensions\Extensions.DateTime.cs" />
     <Compile Include="Util\Extensions\Extensions.Json.cs" />
     <Compile Include="Util\Extensions\Extensions.Nullable.cs" />
     <Compile Include="Util\Extensions\Extensions.Validate.cs" />
     <Compile Include="Util\LoginCheckFilterAttribute.cs" />
+    <Compile Include="Util\Pagination.cs" />
     <Compile Include="Util\ReqParameter.cs" />
     <Compile Include="Util\ResParameter.cs" />
     <Compile Include="Util\ResponseCode.cs" />
@@ -495,6 +498,7 @@
     <Content Include="Content\js\laydate\theme\default\font\iconfont.eot" />
     <Content Include="Content\js\laydate\theme\default\font\iconfont.ttf" />
     <Content Include="Content\js\laydate\theme\default\font\iconfont.woff" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -528,6 +532,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Farmer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

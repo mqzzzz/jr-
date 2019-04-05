@@ -76,9 +76,10 @@
 
                 <div class="left_cage">
                     <div class="dataAllBorder01 cage_cl" style="margin-top: 9% !important; height: 24%;">
-                        <video autoplay="autoplay" loop="loop" class="dataAllBorder02 video_cage">
-                            <source class="video" title="主监控位" src="video/test_mv02.mov" />
-                        </video>
+                        @*<video autoplay="autoplay" loop="loop" class="dataAllBorder02 video_cage">
+                                <source class="video" title="主监控位" src="video/test_mv02.mov" />
+                            </video>*@
+                        <iframe style="margin:auto;left:0;right:0;top:0;bottom:0;" scrolling="no" src="https://tianqiapi.com/api.php?style=ts&skin=sogou&color=ffffff&column=3" frameborder="0" width="378" height="225" allowtransparency="true"></iframe>
                     </div>
                     <div class="dataAllBorder01 cage_cl" style="margin-top: 1.5% !important; height: 38%;">
                         <div class="dataAllBorder02 video_cage XunShiImages">
@@ -333,11 +334,11 @@
                                     <div class="map_title" style="background-image: url(/Content/img/second_title.png);">服务车辆实时监控</div>
                                 </div>
                                 @*<div>
-                                    <select id="selLayer" style="width:100px;">
-                                        <option value="">车辆</option>
-                                        <option value="">企业</option>
-                                    </select>
-                                </div>*@
+                                        <select id="selLayer" style="width:100px;">
+                                            <option value="">车辆</option>
+                                            <option value="">企业</option>
+                                        </select>
+                                    </div>*@
                             </div>
                             <table id="table" style="width: 100%"></table>
                         </div>
@@ -355,9 +356,9 @@
                             <div class="table1">
                                 <table id="table1" style="width: 100%"></table>
                             </div>
-                            <div class="table2" style=" display: none;">
-                                <table id="table2" style="width: 100%;"></table>
-                            </div>
+                            @*<div class="table2" style=" display: none;">
+                                    <table id="table2" style="width: 100%;"></table>
+                                </div>*@
                         </div>
 
                     </div>
@@ -641,7 +642,7 @@
                                 </script>
                             </div>
                             <!--翻页模块-->
-                            <div class="chemistry_tcdPageCode"></div>
+                            @*<div class="chemistry_tcdPageCode"></div>*@
                         </div>
                         <!--企业检索切换05-->
                         <div class="dataAllBorder02 enterprise_check_in" id="enterprise_check_in" style="display: none;position: relative">
@@ -735,44 +736,44 @@
                                 </script>
                             </div>
                             <!--翻页模块-->
-                            <div class="car_tcdPageCode"></div>
+                            @*<div class="car_tcdPageCode"></div>*@
                         </div>
                     </div>
 
                     <div class="dataAllBorder01 cage_cl check_decrease" style="margin-top: 1.5% !important; height: 32%; position: relative;">
                         <div class="dataAllBorder02 over_hide" style="padding: 1.2%;">
-                            <div class="analysis">xxxxx构成因素占比：</div>
-                            <div class="danger_contain_box">
-                                <div id="container_huan" style="height: 90%;width: 100%"></div>
+                            <div class="analysis">一个月内病虫害占比：</div>
+                            <div class="danger_contain_box" style="height:100%;">
+                                <div id="container_huan" style="height:65%;width:100%"></div>
                             </div>
-                            <div class="danger_depart_box">
+                            @*<div class="danger_depart_box">
 
-                                <ul class="danger_depart">
-                                    <li class="danger_ico" style="background-image: url(img/images/pic_ico_01.png); background-position-x: 0px"></li>
-                                    <li class="data_name">xxxxx综合</li>
-                                    <li class="data data01">652</li>
-                                    <li class="data data02">↑&nbsp&nbsp1.2%</li>
-                                </ul>
-                                <ul class="danger_depart">
-                                    <li class="danger_ico" style="background-image: url(img/images/pic_ico_02.png); background-position-x: 0px"></li>
-                                    <li class="data_name">统计一</li>
-                                    <li class="data data01">97</li>
-                                    <li class="data data02" style="color: #ff2865;">↓&nbsp&nbsp0.3%</li>
-                                </ul>
-                                <ul class="danger_depart danger_depart01">
-                                    <li class="danger_ico" style="background-image: url(img/images/pic_ico_03.png); background-position-x: 0px"></li>
-                                    <li class="data_name">统计二</li>
-                                    <li class="data data01">423</li>
-                                    <li class="data data02">↑&nbsp&nbsp1%</li>
-                                </ul>
-                                <ul class="danger_depart danger_depart01">
-                                    <li class="danger_ico" style="background-image: url(img/images/pic_ico_01.png); background-position-x: 0px"></li>
-                                    <li class="data_name">统计三</li>
-                                    <li class="data data01">218</li>
-                                    <li class="data data02">↑&nbsp&nbsp0.3%</li>
-                                </ul>
+                                    <ul class="danger_depart">
+                                        <li class="danger_ico" style="background-image: url(img/images/pic_ico_01.png); background-position-x: 0px"></li>
+                                        <li class="data_name">xxxxx综合</li>
+                                        <li class="data data01">652</li>
+                                        <li class="data data02">↑&nbsp&nbsp1.2%</li>
+                                    </ul>
+                                    <ul class="danger_depart">
+                                        <li class="danger_ico" style="background-image: url(img/images/pic_ico_02.png); background-position-x: 0px"></li>
+                                        <li class="data_name">统计一</li>
+                                        <li class="data data01">97</li>
+                                        <li class="data data02" style="color: #ff2865;">↓&nbsp&nbsp0.3%</li>
+                                    </ul>
+                                    <ul class="danger_depart danger_depart01">
+                                        <li class="danger_ico" style="background-image: url(img/images/pic_ico_03.png); background-position-x: 0px"></li>
+                                        <li class="data_name">统计二</li>
+                                        <li class="data data01">423</li>
+                                        <li class="data data02">↑&nbsp&nbsp1%</li>
+                                    </ul>
+                                    <ul class="danger_depart danger_depart01">
+                                        <li class="danger_ico" style="background-image: url(img/images/pic_ico_01.png); background-position-x: 0px"></li>
+                                        <li class="data_name">统计三</li>
+                                        <li class="data data01">218</li>
+                                        <li class="data data02">↑&nbsp&nbsp0.3%</li>
+                                    </ul>
 
-                            </div>
+                                </div>*@
 
                         </div>
                     </div>
@@ -781,236 +782,15 @@
             </div>
 
             <div class="inner" style="display: none;">
-                <div class="data_left01">
-                    <div class="dataAll maginS">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit1">xxxxx分析</div>
-                                <div class="data_chart" id="buyTime"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dataAll">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit1">xxxxx类型分析</div>
-                                <p class="data_chart" id="Package01"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dataAll">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit1">xxxxx分析</div>
-                                <p class="data_chart" id="rode01"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="data_left01">
-                    <div class="dataAll maginS">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit1">xxxxxx分析</div>
-                                <p class="data_chart" id="bookAret"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dataAll">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit1">xxxxxxx分析</div>
-                                <p class="data_chart" id="bookBmonth"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dataAll">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit1">xxxxxxx分析</div>
-                                <p class="data_chart" id="whearAbook"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="data_left02">
-                    <div class="dataAll01">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit2">数据汇总</div>
-
-                                <table class="table_data01">
-                                    <tr><td>总数</td><td colspan="3" class="font01">56320</td></tr>
-                                    <tr><td>xxxxxx数</td><td colspan="3" class="font02">56320</td></tr>
-                                    <tr>
-                                        <td>xxxxx数：</td>
-                                        <td>10个</td>
-                                        <td>类型数：</td>
-                                        <td>6个</td>
-                                    </tr>
-                                    <tr>
-                                        <td>xxxx最多数：</td>
-                                        <td>16-20点</td>
-                                        <td>xxxxx最多月：</td>
-                                        <td>12月</td>
-                                    </tr>
-                                    <tr>
-                                        <td>xxxxx最多季节：</td>
-                                        <td>xxxx</td>
-                                        <td>xxxxx天气：</td>
-                                        <td>晴天</td>
-                                    </tr>
-                                    <tr>
-                                        <td>xxxxxx：</td>
-                                        <td>套餐A</td>
-                                        <td>xxxxxx：</td>
-                                        <td>活动</td>
-                                    </tr>
-                                    <tr>
-                                        <td>xxxxxx：</td>
-                                        <td>交通畅通</td>
-                                        <td>xxxxx特殊时间：</td>
-                                        <td>国庆节</td>
-                                    </tr>
-                                    <tr>
-                                        <td>xxxxx：</td>
-                                        <td colspan="3" style="color: red">xxxxxB</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>xxxxx多季节：</td>
-                                        <td colspan="3" style="color: red">冬季</td>
-
-                                    </tr>
-
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dataAll02">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit1">xxxxx分析</div>
-                                <p class="data_chart" id="rodeAbook"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="data_left01">
-                    <div class="dataAll maginS">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit1">xxxxx分析</div>
-                                <p class="data_chart" id="seaAbook01"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dataAll">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit1">xxxxx订单分析</div>
-                                <p class="data_chart" id="actionBook"></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dataAll">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit1">xxxxxx分析</div>
-                                <p class="data_chart" id="sperceBook01"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="inner" style="display:none">
-                <div class="data_left03">
-                    <div class="dataAllNo01 maginS01">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit3">收入渠道分析</div>
-                                <table class="table_data01">
-                                    <tr>
-                                        <td>总收入：</td>
-                                        <td colspan="3" class="font01">123653元</td>
-                                    </tr>
-                                    <tr>
-                                        <td>收入渠道数：</td>
-                                        <td colspan="3" class="font03">5个</td>
-                                    </tr>
-                                    <tr><td>收入最多渠道</td><td class="font04">渠道A(56%)</td><td>收入最少渠道</td><td class="font05">渠道C(2.8%)</td></tr>
-                                    <tr><td>渠道A收入</td><td class="font6">53602元</td><td>渠道A收入占比</td><td class="font6">4.8%</td></tr>
-                                    <tr><td>渠道B收入</td><td class="font6">53602元</td><td>渠道B收入占比</td><td class="font6">4.8%</td></tr>
-                                    <tr><td>渠道C收入</td><td class="font6">53602元</td><td>渠道D收入占比</td><td class="font6">4.8%</td></tr>
-
-                                </table>
-                                <p class="data_chart01" id="zhanbi02"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="data_left04">
-
-                    <!--style="margin-top: 6.3%"-->
-                    <div class="dataAllNo01">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit3">营销投入与销售量分析</div>
-                                <table class="table_data02">
-                                    <tr><td class="font07">销量总量</td><td class="font03">1560万元</td><td class="font07">营销投入量</td><td class="font02">560万</td></tr>
-                                    <tr><td class="font07">总利润</td><td class="font01">1000万元</td><td class="font07">利润率</td><td class="font01">464.15%</td></tr>
-
-                                </table>
-                                <p>
-                                    <div class="zhanleft01" id="allAly01"></div>
-                                    <div class="zhanleft01" id="allAly02"></div>
-                                </p>
-                                <p class="zhanleft02" id="allAly03"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="data_left03">
-                    <div class="dataAllNo01 maginS01">
-                        <div class="dataAllBorder01">
-                            <div class="dataAllBorder02">
-                                <div class="data_tit3">支出渠道分析</div>
-                                <table class="table_data01">
-                                    <tr>
-                                        <td>总支出：</td>
-                                        <td colspan="3" class="font02">123653元</td>
-                                    </tr>
-                                    <tr>
-                                        <td>支出渠道数：</td>
-                                        <td colspan="3" class="font02">5个</td>
-                                    </tr>
-                                    <tr><td>支出最多渠道</td><td class="font05">渠道A(56%)</td><td>支出最少渠道</td><td class="font04">渠道C(2.8%)</td></tr>
-                                    <tr><td>渠道A支出</td><td class="font6">53602元</td><td>渠道A支出占比</td><td class="font6">4.8%</td></tr>
-                                    <tr><td>渠道B支出</td><td class="font6">53602元</td><td>渠道B支出占比</td><td class="font6">4.8%</td></tr>
-                                    <tr><td>渠道C支出</td><td class="font6">53602元</td><td>渠道D支出占比</td><td class="font6">4.8%</td></tr>
-
-                                </table>
-                                <p class="data_chart01" id="zhanbi03"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="inner" style="display: none">
                 <div class="clear"></div>
                 <div class="data_left05">
                     <div class="dataAllNo02 ">
                         <div class="dataAllBorder01">
                             <div class="dataAllBorder02">
-                                <div class="data_tit">xxxxxxx分析</div>
-                                <p class="data_chart02" id="shijian01"></p>
-
+                                <div class="data_tit">当天服务农户列表</div>
+                                <div class="table2">
+                                    <table id="table2" style="width: 100%;"></table>
+                                </div>
                             </div>
                         </div>
 
@@ -1020,12 +800,10 @@
                     <div class="dataAllNo02 ">
                         <div class="dataAllBorder01">
                             <div class="dataAllBorder02">
-                                <div class="data_tit">xxxxx分析</div>
-                                <table class="table_data02">
-                                    <tr><td class="font07">事件类型</td><td class="font03">5个</td><td class="font07">xxxx</td><td class="font02">560万</td></tr>
-                                    <tr><td class="font07">最多发生事件</td><td class="font01">xxxx</td><td class="font07">最少发生事件</td><td class="font01">xxxxx</td></tr>
-
-                                </table>
+                                <div class="data_tit">本周服务农户列表</div>
+                                <div class="table2">
+                                    <table id="table2" style="width: 100%;"></table>
+                                </div>
                                 <p class="data_chart02" id="shijian03"></p>
                             </div>
                         </div>
@@ -1037,8 +815,10 @@
                     <div class="dataAllNo02">
                         <div class="dataAllBorder01">
                             <div class="dataAllBorder02">
-                                <div class="data_tit">xxxx分析</div>
-                                <p class="data_chart02" id="shijian02"></p>
+                                <div class="data_tit">本月服务农户列表</div>
+                                <div class="table2">
+                                    <table id="table2" style="width: 100%;"></table>
+                                </div>
                             </div>
                         </div>
 
@@ -1048,248 +828,525 @@
                     <div class="dataAllNo02">
                         <div class="dataAllBorder01">
                             <div class="dataAllBorder02">
-                                <div class="data_tit">xxxxxx分析</div>
+                                <div class="data_tit">本月未服务农户列表</div>
 
-                                <p class="data_chart03" id="shijian04"></p>
+                                <div class="table2">
+                                    <table id="table2" style="width: 100%;"></table>
+                                </div>
                             </div>
                         </div>
 
+                    </div>
+                </div>
+                @*<div class="data_left01">
+            <div class="dataAll maginS">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit1">xxxxx分析</div>
+                        <div class="data_chart" id="buyTime"></div>
                     </div>
                 </div>
             </div>
-
-            <div class="inner" style="display: none">
-                <div class="manage_left l_left">
-                    <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
-                    <div class="manage_line1">
-                        <div class="manage_line2">
-                            <div class="manage_top_middle">
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <td>xxxx总数</td>
-                                            <td colspan="3">25414人</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xxxxx</td>
-                                            <td colspan="3">省内游客</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xxxxx</td>
-                                            <td colspan="3">青年</td>
-                                        </tr>
-                                        <tr>
-                                            <td>男性游客</td>
-                                            <td>5424人</td>
-                                            <td>女性游客</td>
-                                            <td>5457人</td>
-                                        </tr>
-                                        <tr>
-                                            <td>团队游客</td>
-                                            <td>5424人</td>
-                                            <td>散客</td>
-                                            <td>5457人</td>
-                                        </tr>
-                                        <tr>
-                                            <td>同比</td>
-                                            <td>下降5%</td>
-                                            <td>环比</td>
-                                            <td>上升5.6%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <p>xxxxx数据汇总</p>
-                            </div>
-                            <div class="manage_left_top">
-                                <div class="manage_top_left l_left">
-                                    <div id="container2" style="height: 90%"></div>
-                                    <p>xxxxx分析</p>
-                                </div>
-                                <div class="manage_top_left l_left">
-                                    <div id="container1" style="height: 90%"></div>
-                                    <p>xxxx分析</p>
-                                </div>
-                                <div class="manage_top_left l_left">
-                                    <div id="container3" style="height:90%"></div>
-                                    <p>xxxx分析</p>
-                                </div>
-
-                            </div>
-                            <div class="manage_top_middle">
-                                <div id="container4" style="height: 90%"></div>
-                                <p>xxxx数据分析</p>
-                            </div>
-                            <!--<div class="manage_top_middle l_left">-->
-                            <!--<div id="container5" style="height: 90%"></div>-->
-                            <!--<p>天气——游客数据分析</p>-->
-                            <!--</div>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="manage_left l_left">
-                    <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
-                    <div class="manage_line1">
-                        <div class="manage_line2">
-                            <div class="manage_top_middle l_left">
-                                <div id="container9" style="height: 90%"></div>
-                                <p>xxxx情况</p>
-                            </div>
-                            <div class="manage_top_middle l_left">
-                                <div id="container10" style="height: 90%"></div>
-                                <p>xxxx分析</p>
-                            </div>
-                            <div class="manage_top_middle l_left">
-                                <div id="container11" style="height: 90%"></div>
-                                <p>xxxx分析</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="manage_left l_left">
-                    <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
-                    <div class="manage_line1">
-                        <div class="manage_line2">
-                            <div class="manage_top_middle">
-                                <div id="container12" style="height: 90%"></div>
-                                <p>xxxxx排行</p>
-                            </div>
-                            <div class="manage_top_middle">
-                                <div id="container6" style="height: 90%"></div>
-                                <p>xxxx数据分析</p>
-                            </div>
-                            <div class="manage_top_middle l_left">
-                                <div id="container5" style="height: 90%"></div>
-                                <p>xxxxx数据分析</p>
-                            </div>
-                        </div>
+            <div class="dataAll">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit1">xxxxx类型分析</div>
+                        <p class="data_chart" id="Package01"></p>
                     </div>
                 </div>
             </div>
-
-            <div class="inner" style="display: none;">
-                <div class="user_left l_left" style=" margin-left: 0.6%">
-                    <!--<div class="user_left_nav"><img src="../images/left_nav.png"/></div>-->
-                    <div class="user_line1">
-                        <div class="user_line2">
-                            <div class="user_top_middle">
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <td>xxxx总数</td>
-                                            <td colspan="3">965人</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xxxx工作人员</td>
-                                            <td>625人</td>
-                                            <td>xxxx工作人员</td>
-                                            <td>340人</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xxxx</td>
-                                            <td>急救部</td>
-                                            <td>xxxx工作人员</td>
-                                            <td>xxx（99%）</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xxx</td>
-                                            <td>售票部</td>
-                                            <td>xxxx</td>
-                                            <td>安保部</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xxx</td>
-                                            <td>李焕</td>
-                                            <td>xxx</td>
-                                            <td>周伟</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xxxx主要原因</td>
-                                            <td>人为损坏</td>
-                                            <td>xxx处理情况</td>
-                                            <td>均及时进行设备处理</td>
-                                        </tr>
-                                        <!--<tr>-->
-                                        <!--<td>年度最佳员工</td>-->
-                                        <!--<td>李进</td>-->
-                                        <!--<td>重点观察员工</td>-->
-                                        <!--<td>周伟</td>-->
-                                        <!--</tr>-->
-
-                                    </tbody>
-                                </table>
-                                <p>xxx管理汇总</p>
-                            </div>
-                            <div class="user_left_top">
-                                <div class="user_top_left l_left">
-                                    <div id="userContainerSex" style="height: 90%"></div>
-                                    <p>工作人员性别占比</p>
-                                </div>
-                                <div class="user_top_left l_left">
-                                    <div id="userContainerManage" style="height: 90%"></div>
-                                    <p>各部门人员占比</p>
-                                </div>
-                                <div class="user_top_left l_left">
-                                    <div id="userContainerAge" style="height:90%"></div>
-                                    <p>工作人员年龄段占比</p>
-                                </div>
-
-                            </div>
-                            <div class="user_top_middle">
-                                <div id="userContainerAttendance" style="height: 90%"></div>
-                                <p>景区各部门出勤情况</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="user_left l_left" style=" margin-left: 0.6%">
-                    <!--<div class="manage_left_nav"><img src="../images/left_nav.png"/></div>-->
-                    <div class="user_line1">
-                        <div class="user_line2">
-                            <div class="user_top_middle l_left">
-                                <div id="userContainerPersonal" style="height: 90%"></div>
-                                <p>xxx排行</p>
-                            </div>
-                            <div class="user_top_middle l_left">
-                                <div id="userContainerFlow" style="height: 90%"></div>
-                                <p>xxx分析</p>
-                            </div>
-                            <div class="user_top_middle l_left">
-                                <div id="userContainerIllegal" style="height: 90%"></div>
-                                <p>xxxx分析</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="user_left l_left" style=" margin-left: 0.6%">
-                    <!--<div class="manage_left_nav"><img src="../images/left_nav.png"/></div>-->
-                    <div class="user_line1">
-                        <div class="user_line2">
-                            <div class="user_top_middle">
-                                <div id="userContainerComplaint" style="height: 90%"></div>
-                                <p>xxxx情况</p>
-                            </div>
-                            <div class="user_top_middle">
-                                <div id="userContainerPrize" style="height: 90%"></div>
-                                <p>xxx分析</p>
-                            </div>
-                            <div class="user_top_middle l_left">
-                                <div class="user_right_left l_left">
-                                    <div id="userContainerReason" style="height: 90%"></div>
-                                    <p>xxx原因分析</p>
-                                </div>
-                                <div class="user_right_left l_left">
-                                    <div id="userContainerHandle" style="height: 90%"></div>
-                                    <p>故障处理情况</p>
-                                </div>
-                            </div>
-                        </div>
+            <div class="dataAll">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit1">xxxxx分析</div>
+                        <p class="data_chart" id="rode01"></p>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div>
+        <div class="data_left01">
+            <div class="dataAll maginS">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit1">xxxxxx分析</div>
+                        <p class="data_chart" id="bookAret"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="dataAll">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit1">xxxxxxx分析</div>
+                        <p class="data_chart" id="bookBmonth"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="dataAll">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit1">xxxxxxx分析</div>
+                        <p class="data_chart" id="whearAbook"></p>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+        <div class="data_left02">
+            <div class="dataAll01">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit2">数据汇总</div>
+
+                        <table class="table_data01">
+                            <tr><td>总数</td><td colspan="3" class="font01">56320</td></tr>
+                            <tr><td>xxxxxx数</td><td colspan="3" class="font02">56320</td></tr>
+                            <tr>
+                                <td>xxxxx数：</td>
+                                <td>10个</td>
+                                <td>类型数：</td>
+                                <td>6个</td>
+                            </tr>
+                            <tr>
+                                <td>xxxx最多数：</td>
+                                <td>16-20点</td>
+                                <td>xxxxx最多月：</td>
+                                <td>12月</td>
+                            </tr>
+                            <tr>
+                                <td>xxxxx最多季节：</td>
+                                <td>xxxx</td>
+                                <td>xxxxx天气：</td>
+                                <td>晴天</td>
+                            </tr>
+                            <tr>
+                                <td>xxxxxx：</td>
+                                <td>套餐A</td>
+                                <td>xxxxxx：</td>
+                                <td>活动</td>
+                            </tr>
+                            <tr>
+                                <td>xxxxxx：</td>
+                                <td>交通畅通</td>
+                                <td>xxxxx特殊时间：</td>
+                                <td>国庆节</td>
+                            </tr>
+                            <tr>
+                                <td>xxxxx：</td>
+                                <td colspan="3" style="color: red">xxxxxB</td>
+
+                            </tr>
+                            <tr>
+                                <td>xxxxx多季节：</td>
+                                <td colspan="3" style="color: red">冬季</td>
+
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="dataAll02">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit1">xxxxx分析</div>
+                        <p class="data_chart" id="rodeAbook"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="data_left01">
+            <div class="dataAll maginS">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit1">xxxxx分析</div>
+                        <p class="data_chart" id="seaAbook01"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="dataAll">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit1">xxxxx订单分析</div>
+                        <p class="data_chart" id="actionBook"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="dataAll">
+                <div class="dataAllBorder01">
+                    <div class="dataAllBorder02">
+                        <div class="data_tit1">xxxxxx分析</div>
+                        <p class="data_chart" id="sperceBook01"></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>*@
+            </div>
+
+                <div class="inner" style="display:none">
+                    <div class="data_left03">
+                        <div class="dataAllNo01 maginS01">
+                            <div class="dataAllBorder01">
+                                <div class="dataAllBorder02">
+                                    <div class="data_tit3">收入渠道分析</div>
+                                    <table class="table_data01">
+                                        <tr>
+                                            <td>总收入：</td>
+                                            <td colspan="3" class="font01">123653元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>收入渠道数：</td>
+                                            <td colspan="3" class="font03">5个</td>
+                                        </tr>
+                                        <tr><td>收入最多渠道</td><td class="font04">渠道A(56%)</td><td>收入最少渠道</td><td class="font05">渠道C(2.8%)</td></tr>
+                                        <tr><td>渠道A收入</td><td class="font6">53602元</td><td>渠道A收入占比</td><td class="font6">4.8%</td></tr>
+                                        <tr><td>渠道B收入</td><td class="font6">53602元</td><td>渠道B收入占比</td><td class="font6">4.8%</td></tr>
+                                        <tr><td>渠道C收入</td><td class="font6">53602元</td><td>渠道D收入占比</td><td class="font6">4.8%</td></tr>
+
+                                    </table>
+                                    <p class="data_chart01" id="zhanbi02"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data_left04">
+
+                        <!--style="margin-top: 6.3%"-->
+                        <div class="dataAllNo01">
+                            <div class="dataAllBorder01">
+                                <div class="dataAllBorder02">
+                                    <div class="data_tit3">营销投入与销售量分析</div>
+                                    <table class="table_data02">
+                                        <tr><td class="font07">销量总量</td><td class="font03">1560万元</td><td class="font07">营销投入量</td><td class="font02">560万</td></tr>
+                                        <tr><td class="font07">总利润</td><td class="font01">1000万元</td><td class="font07">利润率</td><td class="font01">464.15%</td></tr>
+
+                                    </table>
+                                    <p>
+                                        <div class="zhanleft01" id="allAly01"></div>
+                                        <div class="zhanleft01" id="allAly02"></div>
+                                    </p>
+                                    <p class="zhanleft02" id="allAly03"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data_left03">
+                        <div class="dataAllNo01 maginS01">
+                            <div class="dataAllBorder01">
+                                <div class="dataAllBorder02">
+                                    <div class="data_tit3">支出渠道分析</div>
+                                    <table class="table_data01">
+                                        <tr>
+                                            <td>总支出：</td>
+                                            <td colspan="3" class="font02">123653元</td>
+                                        </tr>
+                                        <tr>
+                                            <td>支出渠道数：</td>
+                                            <td colspan="3" class="font02">5个</td>
+                                        </tr>
+                                        <tr><td>支出最多渠道</td><td class="font05">渠道A(56%)</td><td>支出最少渠道</td><td class="font04">渠道C(2.8%)</td></tr>
+                                        <tr><td>渠道A支出</td><td class="font6">53602元</td><td>渠道A支出占比</td><td class="font6">4.8%</td></tr>
+                                        <tr><td>渠道B支出</td><td class="font6">53602元</td><td>渠道B支出占比</td><td class="font6">4.8%</td></tr>
+                                        <tr><td>渠道C支出</td><td class="font6">53602元</td><td>渠道D支出占比</td><td class="font6">4.8%</td></tr>
+
+                                    </table>
+                                    <p class="data_chart01" id="zhanbi03"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inner" style="display: none">
+                    <div class="clear"></div>
+                    <div class="data_left05">
+                        <div class="dataAllNo02 ">
+                            <div class="dataAllBorder01">
+                                <div class="dataAllBorder02">
+                                    <div class="data_tit">xxxxxxx分析</div>
+                                    <p class="data_chart02" id="shijian01"></p>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="data_left05">
+                        <div class="dataAllNo02 ">
+                            <div class="dataAllBorder01">
+                                <div class="dataAllBorder02">
+                                    <div class="data_tit">xxxxx分析</div>
+                                    <table class="table_data02">
+                                        <tr><td class="font07">事件类型</td><td class="font03">5个</td><td class="font07">xxxx</td><td class="font02">560万</td></tr>
+                                        <tr><td class="font07">最多发生事件</td><td class="font01">xxxx</td><td class="font07">最少发生事件</td><td class="font01">xxxxx</td></tr>
+
+                                    </table>
+                                    <p class="data_chart02" id="shijian03"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="data_left05">
+                        <div class="dataAllNo02">
+                            <div class="dataAllBorder01">
+                                <div class="dataAllBorder02">
+                                    <div class="data_tit">xxxx分析</div>
+                                    <p class="data_chart02" id="shijian02"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="data_left05">
+                        <div class="dataAllNo02">
+                            <div class="dataAllBorder01">
+                                <div class="dataAllBorder02">
+                                    <div class="data_tit">xxxxxx分析</div>
+
+                                    <p class="data_chart03" id="shijian04"></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inner" style="display: none">
+                    <div class="manage_left l_left">
+                        <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
+                        <div class="manage_line1">
+                            <div class="manage_line2">
+                                <div class="manage_top_middle">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td>xxxx总数</td>
+                                                <td colspan="3">25414人</td>
+                                            </tr>
+                                            <tr>
+                                                <td>xxxxx</td>
+                                                <td colspan="3">省内游客</td>
+                                            </tr>
+                                            <tr>
+                                                <td>xxxxx</td>
+                                                <td colspan="3">青年</td>
+                                            </tr>
+                                            <tr>
+                                                <td>男性游客</td>
+                                                <td>5424人</td>
+                                                <td>女性游客</td>
+                                                <td>5457人</td>
+                                            </tr>
+                                            <tr>
+                                                <td>团队游客</td>
+                                                <td>5424人</td>
+                                                <td>散客</td>
+                                                <td>5457人</td>
+                                            </tr>
+                                            <tr>
+                                                <td>同比</td>
+                                                <td>下降5%</td>
+                                                <td>环比</td>
+                                                <td>上升5.6%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p>xxxxx数据汇总</p>
+                                </div>
+                                <div class="manage_left_top">
+                                    <div class="manage_top_left l_left">
+                                        <div id="container2" style="height: 90%"></div>
+                                        <p>xxxxx分析</p>
+                                    </div>
+                                    <div class="manage_top_left l_left">
+                                        <div id="container1" style="height: 90%"></div>
+                                        <p>xxxx分析</p>
+                                    </div>
+                                    <div class="manage_top_left l_left">
+                                        <div id="container3" style="height:90%"></div>
+                                        <p>xxxx分析</p>
+                                    </div>
+
+                                </div>
+                                <div class="manage_top_middle">
+                                    <div id="container4" style="height: 90%"></div>
+                                    <p>xxxx数据分析</p>
+                                </div>
+                                <!--<div class="manage_top_middle l_left">-->
+                                <!--<div id="container5" style="height: 90%"></div>-->
+                                <!--<p>天气——游客数据分析</p>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="manage_left l_left">
+                        <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
+                        <div class="manage_line1">
+                            <div class="manage_line2">
+                                <div class="manage_top_middle l_left">
+                                    <div id="container9" style="height: 90%"></div>
+                                    <p>xxxx情况</p>
+                                </div>
+                                <div class="manage_top_middle l_left">
+                                    <div id="container10" style="height: 90%"></div>
+                                    <p>xxxx分析</p>
+                                </div>
+                                <div class="manage_top_middle l_left">
+                                    <div id="container11" style="height: 90%"></div>
+                                    <p>xxxx分析</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="manage_left l_left">
+                        <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
+                        <div class="manage_line1">
+                            <div class="manage_line2">
+                                <div class="manage_top_middle">
+                                    <div id="container12" style="height: 90%"></div>
+                                    <p>xxxxx排行</p>
+                                </div>
+                                <div class="manage_top_middle">
+                                    <div id="container6" style="height: 90%"></div>
+                                    <p>xxxx数据分析</p>
+                                </div>
+                                <div class="manage_top_middle l_left">
+                                    <div id="container5" style="height: 90%"></div>
+                                    <p>xxxxx数据分析</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inner" style="display: none;">
+                    <div class="user_left l_left" style=" margin-left: 0.6%">
+                        <!--<div class="user_left_nav"><img src="../images/left_nav.png"/></div>-->
+                        <div class="user_line1">
+                            <div class="user_line2">
+                                <div class="user_top_middle">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td>xxxx总数</td>
+                                                <td colspan="3">965人</td>
+                                            </tr>
+                                            <tr>
+                                                <td>xxxx工作人员</td>
+                                                <td>625人</td>
+                                                <td>xxxx工作人员</td>
+                                                <td>340人</td>
+                                            </tr>
+                                            <tr>
+                                                <td>xxxx</td>
+                                                <td>急救部</td>
+                                                <td>xxxx工作人员</td>
+                                                <td>xxx（99%）</td>
+                                            </tr>
+                                            <tr>
+                                                <td>xxx</td>
+                                                <td>售票部</td>
+                                                <td>xxxx</td>
+                                                <td>安保部</td>
+                                            </tr>
+                                            <tr>
+                                                <td>xxx</td>
+                                                <td>李焕</td>
+                                                <td>xxx</td>
+                                                <td>周伟</td>
+                                            </tr>
+                                            <tr>
+                                                <td>xxxx主要原因</td>
+                                                <td>人为损坏</td>
+                                                <td>xxx处理情况</td>
+                                                <td>均及时进行设备处理</td>
+                                            </tr>
+                                            <!--<tr>-->
+                                            <!--<td>年度最佳员工</td>-->
+                                            <!--<td>李进</td>-->
+                                            <!--<td>重点观察员工</td>-->
+                                            <!--<td>周伟</td>-->
+                                            <!--</tr>-->
+
+                                        </tbody>
+                                    </table>
+                                    <p>xxx管理汇总</p>
+                                </div>
+                                <div class="user_left_top">
+                                    <div class="user_top_left l_left">
+                                        <div id="userContainerSex" style="height: 90%"></div>
+                                        <p>工作人员性别占比</p>
+                                    </div>
+                                    <div class="user_top_left l_left">
+                                        <div id="userContainerManage" style="height: 90%"></div>
+                                        <p>各部门人员占比</p>
+                                    </div>
+                                    <div class="user_top_left l_left">
+                                        <div id="userContainerAge" style="height:90%"></div>
+                                        <p>工作人员年龄段占比</p>
+                                    </div>
+
+                                </div>
+                                <div class="user_top_middle">
+                                    <div id="userContainerAttendance" style="height: 90%"></div>
+                                    <p>景区各部门出勤情况</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user_left l_left" style=" margin-left: 0.6%">
+                        <!--<div class="manage_left_nav"><img src="../images/left_nav.png"/></div>-->
+                        <div class="user_line1">
+                            <div class="user_line2">
+                                <div class="user_top_middle l_left">
+                                    <div id="userContainerPersonal" style="height: 90%"></div>
+                                    <p>xxx排行</p>
+                                </div>
+                                <div class="user_top_middle l_left">
+                                    <div id="userContainerFlow" style="height: 90%"></div>
+                                    <p>xxx分析</p>
+                                </div>
+                                <div class="user_top_middle l_left">
+                                    <div id="userContainerIllegal" style="height: 90%"></div>
+                                    <p>xxxx分析</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user_left l_left" style=" margin-left: 0.6%">
+                        <!--<div class="manage_left_nav"><img src="../images/left_nav.png"/></div>-->
+                        <div class="user_line1">
+                            <div class="user_line2">
+                                <div class="user_top_middle">
+                                    <div id="userContainerComplaint" style="height: 90%"></div>
+                                    <p>xxxx情况</p>
+                                </div>
+                                <div class="user_top_middle">
+                                    <div id="userContainerPrize" style="height: 90%"></div>
+                                    <p>xxx分析</p>
+                                </div>
+                                <div class="user_top_middle l_left">
+                                    <div class="user_right_left l_left">
+                                        <div id="userContainerReason" style="height: 90%"></div>
+                                        <p>xxx原因分析</p>
+                                    </div>
+                                    <div class="user_right_left l_left">
+                                        <div id="userContainerHandle" style="height: 90%"></div>
+                                        <p>故障处理情况</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+    </div>
+    <script src="~/Content/js/artTemplate/template-web.js"></script>
     <script src="~/Content/js/echarts-all.js"></script>
     <script src="~/Content/js/index.js"></script>
     <script src="~/Content/js/bstable/js/bootstrap.min.js"></script>
@@ -1303,7 +1360,6 @@
     <script src="~/Content/js/Home_page.js"></script>
     <script src="~/Content/js/artDialog/artDialog.js"></script>
     <script src="~/Content/js/artDialog/plugins/iframeTools.source.js"></script>
-    <script src="~/Content/js/artTemplate/template-web.js"></script>
     <script>
         var number;
         $(function () {
@@ -1401,7 +1457,7 @@
         //    车辆检索
         function carCheck() {
             $(".check_increase").addClass("check_increase_act");
-            $(".check_decrease").hide()
+            $(".check_decrease").hide() 
             $("#car_check_in").show().siblings().hide()
         }
 
@@ -1490,6 +1546,28 @@
         }
 
         function Echarts() {
+            var arr = [];
+            $.ajax({
+                async: false,
+                type: 'GET',
+                url: "/Home/GetDipByMonth",
+                dataType: "json",
+                success: function (result) {
+                    if (result.code === 200) {
+                        for (var i = 0; i < result.data.length; i++) {
+                            arr.push({
+                                value: result.data[i].total,
+                                name: result.data[i].DIP_name
+                            });
+                        }
+
+                    }
+                },
+                error: function (errorMsg) {
+                    alert("不好意思,图表请求数据失败啦!");
+                    myChart.hideLoading();
+                }
+            });
             var myChart = echarts.init($("#container_huan")[0]);
             var option = {
                 tooltip: {
@@ -1499,14 +1577,14 @@
                 legend: {
                     orient: 'vertical',
                     x: 'left',
-                    data: ['民用爆炸', '射钉器材', '危化品', '寄递物流', '旅店'],
+                    data: ['锈病', '赤霉病', '白粉病', '红蜘蛛', '蚜虫', '吸浆虫', '金针虫', '棉铃虫', '纹枯病', '冻害', '茎腐病'],
                     textStyle: {
                         color: "#e9ebee"
                     }
                 },
                 series: [
                     {
-                        name: '行业数据',
+                        name: '病虫害占比',
                         type: 'pie',
                         center: ['80%', '50%'],
                         radius: ['50%', '80%'],
@@ -1534,13 +1612,7 @@
                                 }
                             }
                         },
-                        data: [
-                            { value: 335, name: '民用爆炸' },
-                            { value: 310, name: '射钉器材' },
-                            { value: 234, name: '危化品' },
-                            { value: 135, name: '寄递物流' },
-                            { value: 1548, name: '旅店' }
-                        ]
+                        data: arr
                     }
                 ]
             };

@@ -15,7 +15,7 @@ namespace Application.Web.Controllers
     public class HomeController : BaseController
     {
         public ConnectionConfig connStr = new ConnectionConfig() { ConnectionString = ConfigurationManager.ConnectionStrings["BaseDb"].ConnectionString, DbType = SqlSugar.DbType.SqlServer, IsAutoCloseConnection = true };
-
+        private string datetime = DateTime.Now.AddDays(-1).ToShortDateString();
         public ActionResult Index()
         {
             Task.Run(async () =>
@@ -123,8 +123,8 @@ namespace Application.Web.Controllers
                                                 on tb1.area_ID=tb2.area_ID
                                               left join Peasant tb3 
                                                 on tb2.Peasant_ID=tb3.Peasant_ID 
-                                            where CONVERT(varchar(100), tb1.op_date, 102)>=CONVERT(varchar(100), DateAdd(dd,-2,getdate()), 102)
-                                            order by tb2.region_Mu desc");
+                                            where tb1.op_date>=@datetime
+                                            order by tb2.region_Mu desc", new { datetime });
                 var dt2 = db.Ado.GetDataTable(@"SELECT top 4
                                                 min(tb1.area_ID) as area_ID,
                                                 min(tb1.op_date) as op_date,
@@ -136,8 +136,8 @@ namespace Application.Web.Controllers
                                                 on tb1.area_ID=tb2.area_ID
                                                 left join Peasant tb3 
                                                 on tb2.Peasant_ID=tb3.Peasant_ID
-                                                where CONVERT(varchar(100), tb1.op_date, 102)>=CONVERT(varchar(100), DateAdd(dd,-2,getdate()), 102)
-                                                 group by tb2.Peasant_ID order by region_Mu desc");
+                                                where tb1.op_date>=@datetime
+                                                 group by tb2.Peasant_ID order by region_Mu desc", new { datetime });
                 var jsonData = new { dt1 = dt, dt2 = dt2 };
                 return Success(jsonData);
             }
@@ -161,7 +161,7 @@ namespace Application.Web.Controllers
                                                 left join DIP tb2 on tb1.DIP_Id = tb2.DIP_Id
                                                 left join area tb3 on tb1.area_ID = tb3.area_ID 
  where tb1.DIP_Id<>6 and CONVERT(varchar(100), tb1.op_date, 102)>=CONVERT(varchar(100), DateAdd(dd,-10,getdate()), 102)
-                                                order by op_date desc");
+                                                order by tb1.op_date desc");
                 return Success(dt);
             }
         }
@@ -176,7 +176,7 @@ namespace Application.Web.Controllers
                 var dt = db.Ado.GetDataTable(@"SELECT sum(tb2.region_Mu) as regionCount
                                                     FROM xunshi tb1 left join area tb2
                                                     on tb1.area_ID=tb2.area_ID
-													where CONVERT(varchar(100), tb1.op_date, 102)>=CONVERT(varchar(100), DateAdd(dd,-2,getdate()), 102)");
+													where tb1.op_date>=@datetime", new { datetime });
                 return Success(dt);
             }
         }
@@ -216,7 +216,7 @@ namespace Application.Web.Controllers
                                                   ,MIN([op_date]) AS OP_DATE
                                                   ,MIN([area_ID]) AS AREA_ID
                                                   ,MIN([DIP_Id]) AS DIP_ID
-                                              FROM [AgricultureData].[dbo].[xunshi] where DIP_Id<>6 
+                                              FROM xunshi where DIP_Id<>6 
                                               GROUP BY area_ID,DIP_Id   ORDER BY OP_DATE DESC) AS TB1 
                                                 JOIN area TB2 ON TB1.AREA_ID=TB2.area_ID
                                                 JOIN DIP TB3 ON TB1.DIP_ID=TB3.DIP_Id");
@@ -277,6 +277,22 @@ namespace Application.Web.Controllers
                     new { nongjiId, begdate, enddate });
                 return Success(dt);
             }
+        }
+        public ActionResult GetDipByMonth()
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var dt = db.Ado.GetDataTable(@"SELECT 
+                                                COUNT(TB1.DIP_Id) as total,
+                                                tb2.DIP_name
+                                                FROM xunshi tb1 
+                                                 join DIP tb2 on tb1.DIP_Id = tb2.DIP_Id
+                                                left join area tb3 on tb1.area_ID = tb3.area_ID 
+                                             where tb1.DIP_Id<>6 and tb1.op_date>=CONVERT(varchar(100), DateAdd(MM,-1,getdate()), 102)
+                                             GROUP BY TB1.DIP_Id,DIP_name");
+                return Success(dt);
+            }
+
         }
     }
 }

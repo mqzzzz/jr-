@@ -9,7 +9,7 @@ $(function(){
             $(this).addClass("nav_active").siblings().removeClass("nav_active");
             $(".index_tabs .inner").eq(index).fadeIn().siblings("div").stop().hide();
             if(index==1){
-                yingXiao();
+                //yingXiao();
             }else if(index==2){
                 shouRu();
             }else if(index==3){
