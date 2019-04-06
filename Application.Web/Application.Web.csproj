@@ -406,6 +406,7 @@
     <Content Include="Content\js\chartData.js" />
     <Content Include="Content\js\demo\jquery.ztree.core-3.5.js" />
     <Content Include="Content\js\echarts-all.js" />
+    <Content Include="Content\js\farmer.js" />
     <Content Include="Content\js\Home_page.js" />
     <Content Include="Content\js\index.js" />
     <Content Include="Content\js\index01.js" />
@@ -527,12 +528,12 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Home\CollectHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Farmer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

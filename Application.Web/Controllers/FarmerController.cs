@@ -21,7 +21,7 @@ namespace Application.Web.Controllers
         /// 当天服务农户列表
         /// </summary>
         /// <returns></returns>
-        public ActionResult GeCurrDayList(int pageNum, int pageSize)
+        public ActionResult GetCurrDayList(int pageNum, int pageSize)
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
@@ -29,7 +29,7 @@ namespace Application.Web.Controllers
                 var endDate = $"{datetime} 23:59:59";
                 try
                 {
-                    var dt = db.Ado.GetDataTable($@"SELECT TOP {pageSize} * FROM (SELECT ROW_NUMBER()OVER(order by op_date) ROWNUM,* 
+                    var dt = db.Ado.GetDataTable($@"SELECT TOP {pageSize} * FROM (SELECT ROW_NUMBER()OVER(order by op_date) ROWNUM,COUNT(1) OVER() AS Total,* 
                                         FROM(SELECT
                                                 tb1.area_ID,
                                                 tb2.Peasant_ID,
@@ -44,7 +44,8 @@ namespace Application.Web.Controllers
                                                 on tb2.Peasant_ID = tb3.Peasant_ID
                                             where tb1.op_date >= @begDate AND tb1.op_date <= @endDate
                                     )A) B where ROWNUM > ({pageNum}  - 1) * {pageSize}", new { begDate, endDate });
-                    return Success(dt);
+                    var jsonData = new { total = dt.Rows[0]["Total"], rows = dt };
+                    return ToJsonResult(jsonData);
                 }
                 catch (Exception e)
                 {
@@ -56,13 +57,16 @@ namespace Application.Web.Controllers
         /// 本周服务农户列表
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetWeekList()
+        public ActionResult GetWeekList(int pageNum, int pageSize)
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
                 var begDate = DateHelper.GetTimeStartByType("Week", DateTime.Now);
                 var endDate = DateHelper.GetTimeEndByType("Week", DateTime.Now);
-                var dt = db.Ado.GetDataTable(@"SELECT 
+                try
+                {
+                    var dt = db.Ado.GetDataTable($@"SELECT TOP {pageSize} * FROM (SELECT ROW_NUMBER()OVER(order by op_date) ROWNUM,COUNT(1) OVER() AS Total,* 
+                                        FROM(SELECT
                                                 tb1.area_ID,
                                                 tb2.Peasant_ID,
                                                 tb1.op_date,
@@ -70,40 +74,57 @@ namespace Application.Web.Controllers
                                                 tb3.Peasant_tep,
                                                 tb2.area_xiang,
                                                 tb2.region_Mu
-                                              FROM xunshi tb1 left join area tb2 
-                                                on tb1.area_ID=tb2.area_ID
-                                              left join Peasant tb3 
-                                                on tb2.Peasant_ID=tb3.Peasant_ID 
-                                            where tb1.op_date>=@begDate AND tb1.op_date<=@endDate
-                                            order by tb1.op_date", new { begDate, endDate });
-                return Success(dt);
+                                              FROM xunshi tb1 left join area tb2
+                                                on tb1.area_ID = tb2.area_ID
+                                              left join Peasant tb3
+                                                on tb2.Peasant_ID = tb3.Peasant_ID
+                                            where tb1.op_date >= @begDate AND tb1.op_date <= @endDate
+                                    )A) B where ROWNUM > ({pageNum}  - 1) * {pageSize}", new { begDate, endDate });
+                    var jsonData = new { total = dt.Rows[0]["Total"], rows = dt };
+                    return ToJsonResult(jsonData);
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
             }
         }
         /// <summary>
         /// 本月服务农户列表
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetMonthList()
+        public ActionResult GetMonthList(int pageNum, int pageSize)
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
                 var begDate = DateHelper.GetTimeStartByType("Month", DateTime.Now);
                 var endDate = DateHelper.GetTimeEndByType("Month", DateTime.Now);
-                var dt = db.Ado.GetDataTable(@"SELECT 
-                                                tb1.area_ID,
-                                                tb2.Peasant_ID,
-                                                tb1.op_date,
-                                                tb3.Peasant_name,
-                                                tb3.Peasant_tep,
-                                                tb2.area_xiang,
-                                                tb2.region_Mu
-                                              FROM xunshi tb1 left join area tb2 
-                                                on tb1.area_ID=tb2.area_ID
-                                              left join Peasant tb3 
-                                                on tb2.Peasant_ID=tb3.Peasant_ID 
-                                            where tb1.op_date>=@begDate AND tb1.op_date<=@endDate
-                                            order by tb1.op_date", new { begDate, endDate });
-                return Success(dt);
+                try
+                {
+                    var dt = db.Ado.GetDataTable($@"SELECT TOP {pageSize} * FROM (SELECT ROW_NUMBER()OVER(order by op_date) ROWNUM,COUNT(1) OVER() AS Total,* 
+                                        FROM(SELECT top 100 percent
+                                                 min(tb1.area_ID) as area_ID,
+                                                 tb2.Peasant_ID,
+                                                 min(tb1.op_date) as op_date,
+                                                 min(tb3.Peasant_name) as Peasant_name,
+                                                 min(tb3.Peasant_tep) as Peasant_tep,
+                                                 min(tb2.area_xiang) as area_xiang,
+                                                 min(tb2.region_Mu) as region_Mu
+                                              FROM xunshi tb1 left join area tb2
+                                                on tb1.area_ID = tb2.area_ID
+                                              left join Peasant tb3
+                                                on tb2.Peasant_ID = tb3.Peasant_ID
+                                            where tb1.op_date >= @begDate AND tb1.op_date <= @endDate
+	                                            group by tb2.Peasant_ID
+                                                order by op_date
+                                    )A) B where ROWNUM > ({pageNum}  - 1) * {pageSize}", new { begDate, endDate });
+                    var jsonData = new { total = dt.Rows[0]["Total"], rows = dt };
+                    return ToJsonResult(jsonData);
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
             }
         }
         /// <summary>

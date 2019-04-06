@@ -115,10 +115,10 @@ map.setCurrentCity("漯河市");
                         points.push("new BMap.Point(" + pointArr[j].split(',')[1] + "," + pointArr[j].split(',')[0] + ")");
                     }
                 }
-                page.fun(i, "" + data[i].area_mubiaojingdu + "," + data[i].area_mubiaoweidu + "", "" + points.toString() + "", '' + data[i].Peasant_name + '', '' + color + '');
+                page.fun(i, "" + data[i].area_mubiaojingdu + "," + data[i].area_mubiaoweidu + "", "" + points.toString() + "", '' + data[i].Peasant_name + '', '' + data[i].area_ID + '', '' + color + '');
             }
         },
-        fun: function (i, xy, arr, wb, ys) {
+        fun: function (i, xy, arr, wb, id, ys) {
             ys = ys == '' ? "Green" : ys;
             if (ys.indexOf(",") != -1)
                 ys = "rgba(" + ys + ")";
@@ -128,9 +128,10 @@ map.setCurrentCity("漯河市");
             //创建多边形
             eval("var secRingPolygon" + i + "= new BMap.Polygon(secRing" + i + ", {fillColor: \"" + ys + "\",strokeColor: \"" + ys + "\", strokeWeight: 2})");
             //添加多边形到地图上
-            showText(eval("secRingPolygon" + i), wb, eval("secRingCenter" + i + ""));
+
 
             map.addOverlay(eval("secRingPolygon" + i));
+            showText(eval("secRingPolygon" + i), wb, id, eval("secRingCenter" + i + ""), xy);
             ////给多边形添加鼠标事件
             //eval("secRingPolygon" + i).addEventListener("mouseover", function () {//鼠标经过时
             //    eval("secRingPolygon" + i).setStrokeColor("red"); //多边形边框为红色
@@ -156,14 +157,169 @@ map.setCurrentCity("漯河市");
 })(document, window, jQuery);
 
 //显示信息
-function showText(polygon, pName, point) {
+function showText(polygon, pName, id, point, xy) {
     //或的多边形的所有顶点
-    //var point = getCenterPoint(polygon.getPath());
+    // point = getCenterPoint(polygon.getPath());
     //获得中心点
     var label = new BMap.Label(pName, { offset: new BMap.Size(-40, -25), position: point });
     label.setStyle({ color: "#fff", fontSize: "14px", backgroundColor: "0.05", border: "0", fontWeight: "bold" });//对label 样式隐藏    
     polygon.addEventListener('mouseover', function () { map.addOverlay(label); });
     polygon.addEventListener('mouseout', function () { map.removeOverlay(label); });
+
+    polygon.addEventListener('click', function () {
+
+        var point = new BMap.Point(xy.split(',')[0], xy.split(',')[1]);
+        var infoWindow = new BMap.InfoWindow("<div class=\"bs-example\" data-example-id=\"button-group-sizing\">"
+            + "<div class=\"btn-group\" role=\"group\" aria-label=\"...\">"
+            + "<button type = \"button\" class= \"btn btn-default\" onclick='getAreaInfo(" + id + ",1)'>巡视</button>"
+            + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",2)'>亩产</button>"
+            + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",3)'>管理</button></div><br>"
+            + "<div class=\"btn-group\" role=\"group\" aria-label=\"...\" style='padding-top:5px;'>"
+            + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",4)'>整地</button>"
+            + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",5)'>施肥</button>"
+            + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",6)'>打药</button></div></div>");  // 创建信息窗口对象 
+        map.openInfoWindow(infoWindow, point); //开启信息窗口
+    });
+}
+function getAreaInfo(areaId, typeId) {
+    if (typeId === 1) {
+        $(".check_increase").addClass("check_increase_act");
+        $(".check_decrease").hide();
+        $("#xunshi_check_in").show().siblings().hide();
+        $.ajax({
+            url: '/Home/GetXunShiByAreaId',
+            data: { areaId: areaId },
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (res) {
+                if (res.code === 200) {
+                    $('.xunshi').html(
+                        template('xunshiTpl', { xunshiList: res.data })
+                    );
+                } else {
+                    console.warn(res.msg);
+                }
+            },
+            error: function () {
+                console.log('服务器异常，请配合后端程序使用');
+            }
+        });
+    }
+    else if (typeId === 2) {
+        $(".check_increase").addClass("check_increase_act");
+        $(".check_decrease").hide();
+        $("#muchan_check_in").show().siblings().hide();
+        $.ajax({
+            url: '/Home/GetMuchanByAreaId',
+            data: { areaId: areaId },
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (res) {
+                if (res.code === 200) {
+                    $('.muchan').html(
+                        template('muchanTpl', { muchanList: res.data })
+                    );
+                } else {
+                    console.warn(res.msg);
+                }
+            },
+            error: function () {
+                console.log('服务器异常，请配合后端程序使用');
+            }
+        });
+    }
+    else if (typeId === 3) {
+        $(".check_increase").addClass("check_increase_act");
+        $(".check_decrease").hide();
+        $("#manage_check_in").show().siblings().hide();
+        $.ajax({
+            url: '/Home/GetManageByAreaId',
+            data: { areaId: areaId },
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (res) {
+                if (res.code === 200) {
+                    $('.manage').html(
+                        template('manageTpl', { manageList: res.data })
+                    );
+                } else {
+                    console.warn(res.msg);
+                }
+            },
+            error: function () {
+                console.log('服务器异常，请配合后端程序使用');
+            }
+        });
+    }
+    else if (typeId === 4) {
+        $(".check_increase").addClass("check_increase_act");
+        $(".check_decrease").hide();
+        $("#zhengdi_check_in").show().siblings().hide();
+        $.ajax({
+            url: '/Home/GetZhengDiByAreaId',
+            data: { areaId: areaId },
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (res) {
+                if (res.code === 200) {
+                    $('.zhengdi').html(
+                        template('zhengdiTpl', { zhengdiList: res.data })
+                    );
+                } else {
+                    console.warn(res.msg);
+                }
+            },
+            error: function () {
+                console.log('服务器异常，请配合后端程序使用');
+            }
+        });
+    }
+    else if (typeId === 5) {
+        $(".check_increase").addClass("check_increase_act");
+        $(".check_decrease").hide();
+        $("#shifei_check_in").show().siblings().hide();
+        $.ajax({
+            url: '/Home/GetShiFeiByAreaId',
+            data: { areaId: areaId },
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (res) {
+                if (res.code === 200) {
+                    $('.shifei').html(
+                        template('shifeiTpl', { shifeiList: res.data })
+                    );
+                } else {
+                    console.warn(res.msg);
+                }
+            },
+            error: function () {
+                console.log('服务器异常，请配合后端程序使用');
+            }
+        });
+    }
+    else if (typeId === 6) {
+        $(".check_increase").addClass("check_increase_act");
+        $(".check_decrease").hide();
+        $("#dayao_check_in").show().siblings().hide();
+        $.ajax({
+            url: '/Home/GetDaYaoByAreaId',
+            data: { areaId: areaId },
+            type: 'GET',
+            dataType: 'JSON',
+            success: function (res) {
+                if (res.code === 200) {
+                    $('.dayao').html(
+                        template('dayaoTpl', { dayaoList: res.data })
+                    );
+                } else {
+                    console.warn(res.msg);
+                }
+            },
+            error: function () {
+                console.log('服务器异常，请配合后端程序使用');
+            }
+        });
+    }
 }
 function getCenterPoint(path) {
 
@@ -321,7 +477,7 @@ function loadDipArea(areaId, dipId) {
                     points.push("new BMap.Point(" + pointArr[j].split(',')[1] + "," + pointArr[j].split(',')[0] + ")");
                 }
             }
-            page.fun(i, "" + item.area_mubiaojingdu + "," + item.area_mubiaoweidu + "", "" + points.toString() + "", '' + item.Peasant_name + '', '' + item.DIP_yanse + '');
+            page.fun(i, "" + item.area_mubiaojingdu + "," + item.area_mubiaoweidu + "", "" + points.toString() + "", '' + item.Peasant_name + '', '', '' + item.DIP_yanse + '');
         }
     });
 }

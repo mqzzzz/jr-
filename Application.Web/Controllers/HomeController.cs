@@ -54,6 +54,8 @@ namespace Application.Web.Controllers
             });
             return View();
         }
+
+        public ActionResult CollectHistory() => View();
         public ActionResult Contact() => View();
         /// <summary>
         /// 左上图片
@@ -293,6 +295,95 @@ namespace Application.Web.Controllers
                 return Success(dt);
             }
 
+        }
+        /// <summary>
+        /// 获取巡视历史列表（根据区域ID）
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public ActionResult GetXunShiByAreaId(int areaId)
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var dt = db.Ado.GetDataTable(@"SELECT op_date,xunshi_beizhu FROM xunshi WHERE area_ID=@areaId order by op_date desc", new { areaId });
+                return Success(dt);
+            }
+        }
+        /// <summary>
+        /// 获取亩产历史列表（根据区域ID）
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public ActionResult GetMuchanByAreaId(int areaId)
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var dt = db.Ado.GetDataTable(@"SELECT muchan_count,op_date,muchan_beizhu FROM muchan WHERE area_ID=@areaId order by op_date desc", new { areaId });
+                return Success(dt);
+            }
+        }
+        /// <summary>
+        /// 获取管理历史列表（根据区域ID）
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public ActionResult GetManageByAreaId(int areaId)
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var dt = db.Ado.GetDataTable(@"SELECT tb1.op_date,manage_beizhu,managetype_name
+                                              FROM manage tb1 left join managetype tb2
+                                              on tb1.managetype_ID=tb2.managetype_ID
+                                              where area_ID=@areaId order by op_date desc", new { areaId });
+                return Success(dt);
+            }
+        }
+        /// <summary>
+        /// 获取整地历史列表（根据区域ID）
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public ActionResult GetZhengDiByAreaId(int areaId)
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var dt = db.Ado.GetDataTable(@"SELECT op_date,Landrectification_name,zhengdi_beizhu 
+                                                FROM zhengdi tb1
+                                                left join Landrectification tb2
+                                                on tb1.Landrectification_ID=tb2.Landrectification_ID
+                                                 WHERE area_ID=@areaId order by op_date desc", new { areaId });
+                return Success(dt);
+            }
+        }
+        /// <summary>
+        /// 获取施肥历史列表（根据区域ID）
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public ActionResult GetShiFeiByAreaId(int areaId)
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var dt = db.Ado.GetDataTable(@"select op_date from  Applyfertilizer where area_ID=@areaId order by op_date desc", new { areaId });
+                return Success(dt);
+            }
+        }
+        /// <summary>
+        /// 获取打药历史列表（根据区域ID）
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <returns></returns>
+        public ActionResult GetDaYaoByAreaId(int areaId)
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var dt = db.Ado.GetDataTable(@"SELECT tb1.op_date,Pesticides_name
+                                                  FROM sprayagricultural tb1 
+                                                  left join Pesticides tb2
+                                                  on tb1.Pesticides_ID= tb2.Pesticides_ID where area_ID=@areaId 
+                                                  order by op_date desc", new { areaId });
+                return Success(dt);
+            }
         }
     }
 }
