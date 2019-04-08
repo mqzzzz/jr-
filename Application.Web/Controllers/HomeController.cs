@@ -113,6 +113,8 @@ namespace Application.Web.Controllers
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
+                var begDate = $"{datetime} 00:00:00";
+                var endDate = $"{datetime} 23:59:59";
                 var dt = db.Ado.GetDataTable(@"SELECT TOP 20 
                                                 tb1.area_ID,
                                                 tb2.Peasant_ID,
@@ -125,8 +127,8 @@ namespace Application.Web.Controllers
                                                 on tb1.area_ID=tb2.area_ID
                                               left join Peasant tb3 
                                                 on tb2.Peasant_ID=tb3.Peasant_ID 
-                                            where tb1.op_date>=@datetime
-                                            order by tb2.region_Mu desc", new { datetime });
+                                             where tb1.op_date >= @begDate AND tb1.op_date <= @endDate
+                                            order by tb2.region_Mu desc", new { begDate, endDate });
                 var dt2 = db.Ado.GetDataTable(@"SELECT top 4
                                                 min(tb1.area_ID) as area_ID,
                                                 min(tb1.op_date) as op_date,
@@ -138,8 +140,8 @@ namespace Application.Web.Controllers
                                                 on tb1.area_ID=tb2.area_ID
                                                 left join Peasant tb3 
                                                 on tb2.Peasant_ID=tb3.Peasant_ID
-                                                where tb1.op_date>=@datetime
-                                                 group by tb2.Peasant_ID order by region_Mu desc", new { datetime });
+                                                where tb1.op_date >= @begDate AND tb1.op_date <= @endDate
+                                                 group by tb2.Peasant_ID order by region_Mu desc", new { begDate, endDate });
                 var jsonData = new { dt1 = dt, dt2 = dt2 };
                 return Success(jsonData);
             }
@@ -162,7 +164,7 @@ namespace Application.Web.Controllers
                                                 FROM xunshi tb1 
                                                 left join DIP tb2 on tb1.DIP_Id = tb2.DIP_Id
                                                 left join area tb3 on tb1.area_ID = tb3.area_ID 
- where tb1.DIP_Id<>6 and CONVERT(varchar(100), tb1.op_date, 102)>=CONVERT(varchar(100), DateAdd(dd,-10,getdate()), 102)
+ where tb1.DIP_Id<>6 and CONVERT(varchar(100), tb1.op_date, 102)>=CONVERT(varchar(100), DateAdd(dd,-7,getdate()), 102)
                                                 order by tb1.op_date desc");
                 return Success(dt);
             }
@@ -175,10 +177,12 @@ namespace Application.Web.Controllers
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
+                var begDate = $"{datetime} 00:00:00";
+                var endDate = $"{datetime} 23:59:59";
                 var dt = db.Ado.GetDataTable(@"SELECT sum(tb2.region_Mu) as regionCount
                                                     FROM xunshi tb1 left join area tb2
                                                     on tb1.area_ID=tb2.area_ID
-													where tb1.op_date>=@datetime", new { datetime });
+													where tb1.op_date >= @begDate AND tb1.op_date <= @endDate", new { begDate, endDate });
                 return Success(dt);
             }
         }
