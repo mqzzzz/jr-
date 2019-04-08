@@ -389,5 +389,15 @@ namespace Application.Web.Controllers
                 return Success(dt);
             }
         }
+        public ActionResult GetCarPoint(int nongjiId)
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var dt = db.Ado.GetDataTable(@"SELECT TOP 1 *
+                                                FROM sbpfallT where nongji_ID=@nongjiId order by shebei_date desc",
+                                                new { nongjiId });
+                return Success(dt);
+            }
+        }
     }
 }

@@ -165,7 +165,6 @@ function showText(polygon, pName, id, point, xy) {
     label.setStyle({ color: "#fff", fontSize: "14px", backgroundColor: "0.05", border: "0", fontWeight: "bold" });//对label 样式隐藏    
     polygon.addEventListener('mouseover', function () { map.addOverlay(label); });
     polygon.addEventListener('mouseout', function () { map.removeOverlay(label); });
-
     polygon.addEventListener('click', function () {
 
         var point = new BMap.Point(xy.split(',')[0], xy.split(',')[1]);

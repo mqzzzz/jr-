@@ -233,6 +233,7 @@
     <Content Include="Content\images\04.png" />
     <Content Include="Content\images\2Dmap.png" />
     <Content Include="Content\images\map.png" />
+    <Content Include="Content\images\mapIcon\car.png" />
     <Content Include="Content\images\mapIcon\event.png" />
     <Content Include="Content\images\mapIcon\huoche.png" />
     <Content Include="Content\images\mapIcon\MapLocation.png" />
@@ -240,7 +241,9 @@
     <Content Include="Content\images\mapIcon\policeman32.png" />
     <Content Include="Content\images\mapIcon\publicCamera.png" />
     <Content Include="Content\images\mapIcon\枪机32.png" />
+    <Content Include="Content\images\mapIcon\汽车.png" />
     <Content Include="Content\images\mapIcon\球机32.png" />
+    <Content Include="Content\images\mapIcon\车.png" />
     <Content Include="Content\images\Satellite_cloud_map.png" />
     <Content Include="Content\images\Vector_map.png" />
     <Content Include="Content\img\1_03.png" />
