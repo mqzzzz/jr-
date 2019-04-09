@@ -309,7 +309,9 @@ namespace Application.Web.Controllers
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
-                var dt = db.Ado.GetDataTable(@"SELECT op_date,xunshi_beizhu FROM xunshi WHERE area_ID=@areaId order by op_date desc", new { areaId });
+                var dt = db.Ado.GetDataTable(@"SELECT op_date,xunshi_beizhu,Photo1,Photo2,tb1.DIP_Id,tb2.DIP_name FROM xunshi tb1 
+                                                join DIP tb2 on tb1.DIP_Id=tb2.DIP_Id 
+                                                 WHERE area_ID=@areaId order by op_date desc", new { areaId });
                 return Success(dt);
             }
         }

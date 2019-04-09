@@ -165,19 +165,26 @@ function showText(polygon, pName, id, point, xy) {
     label.setStyle({ color: "#fff", fontSize: "14px", backgroundColor: "0.05", border: "0", fontWeight: "bold" });//对label 样式隐藏    
     polygon.addEventListener('mouseover', function () { map.addOverlay(label); });
     polygon.addEventListener('mouseout', function () { map.removeOverlay(label); });
-    polygon.addEventListener('click', function () {
 
-        var point = new BMap.Point(xy.split(',')[0], xy.split(',')[1]);
-        var infoWindow = new BMap.InfoWindow("<div class=\"bs-example\" data-example-id=\"button-group-sizing\">"
-            + "<div class=\"btn-group\" role=\"group\" aria-label=\"...\">"
-            + "<button type = \"button\" class= \"btn btn-default\" onclick='getAreaInfo(" + id + ",1)'>巡视</button>"
-            + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",2)'>亩产</button>"
-            + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",3)'>管理</button></div><br>"
-            + "<div class=\"btn-group\" role=\"group\" aria-label=\"...\" style='padding-top:5px;'>"
-            + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",4)'>整地</button>"
-            + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",5)'>施肥</button>"
-            + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",6)'>打药</button></div></div>");  // 创建信息窗口对象 
-        map.openInfoWindow(infoWindow, point); //开启信息窗口
+    polygon.addEventListener('click', function () {
+        layer.open({
+            type: 2
+            , title: '历史数据'
+            , area: ['700px', '600px']
+            , shade: 0
+            , maxmin: true
+            , content: '/Home/CollectHistory?areaId=' + id
+        });        //var point = new BMap.Point(xy.split(',')[0], xy.split(',')[1]);
+        //var infoWindow = new BMap.InfoWindow("<div class=\"bs-example\" data-example-id=\"button-group-sizing\">"
+        //    + "<div class=\"btn-group\" role=\"group\" aria-label=\"...\">"
+        //    + "<button type = \"button\" class= \"btn btn-default\" onclick='getAreaInfo(" + id + ",1)'>巡视</button>"
+        //    + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",2)'>亩产</button>"
+        //    + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",3)'>管理</button></div><br>"
+        //    + "<div class=\"btn-group\" role=\"group\" aria-label=\"...\" style='padding-top:5px;'>"
+        //    + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",4)'>整地</button>"
+        //    + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",5)'>施肥</button>"
+        //    + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",6)'>打药</button></div></div>");  // 创建信息窗口对象 
+        //map.openInfoWindow(infoWindow, point); //开启信息窗口
     });
 }
 function getAreaInfo(areaId, typeId) {

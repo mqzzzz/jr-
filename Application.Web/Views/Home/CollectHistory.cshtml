@@ -7,11 +7,101 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>CollectHistory</title>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="~/Content/js/jquery.js"></script>
+    <script src="~/Content/js/artTemplate/template-web.js"></script>
+    <style>
+        ul li {
+            list-style: none;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+        .clearfix:before, .clearfix:after {
+            clear: both;
+            content: ".";
+            display: block;
+            height: 0;
+            visibility: hidden;
+        }
+
+        .c {
+            clear: both;
+            *height: 0;
+        }
+    </style>
+    <script>
+        function request(keyValue) {
+            var search = location.search.slice(1);
+            var arr = search.split("&");
+            for (var i = 0; i < arr.length; i++) {
+                var ar = arr[i].split("=");
+                if (ar[0] == keyValue) {
+                    if (unescape(ar[1]) == 'undefined') {
+                        return "";
+                    } else {
+                        return unescape(ar[1]);
+                    }
+                }
+            }
+            return "";
+        }
+        $(function () {
+            var areaId = request("areaId");
+            $.ajax({
+                url: '/Home/GetXunShiByAreaId',
+                type: 'GET',
+                data: { areaId: areaId },
+                dataType: 'JSON',
+                success: function (res) {
+                    if (res.code === 200) {
+                        if (res.data != null) {
+                            $('.history_nr').html(
+                                template('dataListTpl', { dataList: res.data })
+                            );
+                        }
+                    } else {
+                        console.warn(res.msg);
+                    }
+                },
+                error: function () {
+                    console.log('服务器异常，请配合后端程序使用');
+                }
+            });
+        });
+
+    </script>
 </head>
+
 <body>
-    <div> 
+    <div class="history_nr">
+        <script id="dataListTpl" type="text/html">
+            <% for(var i = 0; i < dataList.length; i++){ %>
+            <% var item = dataList[i]; %>
+            <div class="box clearfix" style="width: 100%;">
+                <ul class="box-fl" style="width: 38%; float: left;">
+                    <li>
+                        <span><%=item.op_date%></span><span>  巡视</span>
+                    </li>
+                    <li>
+                        <textarea rows="3" cols="20" style="width: 220px;height: 80px;">病虫害：<%=item.DIP_name%>
+备注：<%=item.xunshi_beizhu%>
+                        </textarea>
+                    </li>
+                </ul>
+                <div style="width: 50%; height: 100px;float: left;margin-top: 25px; ">
+                    <img src="data:image/jpg;base64,<%= item.Photo1 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                    <img src="data:image/jpg;base64,<%= item.Photo2 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                </div>
+
+            </div>
+            <% } %>
+
+        </script>
+
     </div>
 </body>
 </html>

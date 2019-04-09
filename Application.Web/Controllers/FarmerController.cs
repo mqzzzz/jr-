@@ -151,7 +151,7 @@ namespace Application.Web.Controllers
                                                     on tb1.area_ID = tb2.area_ID
                                                     left join Peasant tb3
                                                     on tb2.Peasant_ID = tb3.Peasant_ID
-                                                where tb1.op_date >= '2019-3-1' AND tb1.op_date <= '2019-3-31'
+                                                 where tb1.op_date >= @begDate AND tb1.op_date <= @endDate
 	                                                group by tb2.Peasant_ID
                                     ))A) B where ROWNUM > ({pageNum}  - 1) * {pageSize}", new { begDate, endDate });
                     var jsonData = new { total = dt.Rows[0]["Total"], rows = dt };
