@@ -170,9 +170,8 @@ function showText(polygon, pName, id, point, xy) {
         layer.open({
             type: 2
             , title: '历史数据'
-            , area: ['700px', '600px']
-            , shade: 0.8,
-            closeBtn: 0,
+            , area: ['680px', '600px']
+            , shade: 0.2,
             shadeClose: true,
             content: '/Home/CollectHistory?areaId=' + id
         });        //var point = new BMap.Point(xy.split(',')[0], xy.split(',')[1]);
