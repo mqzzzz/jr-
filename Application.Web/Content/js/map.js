@@ -171,9 +171,10 @@ function showText(polygon, pName, id, point, xy) {
             type: 2
             , title: '历史数据'
             , area: ['700px', '600px']
-            , shade: 0
-            , maxmin: true
-            , content: '/Home/CollectHistory?areaId=' + id
+            , shade: 0.8,
+            closeBtn: 0,
+            shadeClose: true,
+            content: '/Home/CollectHistory?areaId=' + id
         });        //var point = new BMap.Point(xy.split(',')[0], xy.split(',')[1]);
         //var infoWindow = new BMap.InfoWindow("<div class=\"bs-example\" data-example-id=\"button-group-sizing\">"
         //    + "<div class=\"btn-group\" role=\"group\" aria-label=\"...\">"
@@ -186,146 +187,6 @@ function showText(polygon, pName, id, point, xy) {
         //    + "<button type=\"button\" class=\"btn btn-default\" onclick='getAreaInfo(" + id + ",6)'>打药</button></div></div>");  // 创建信息窗口对象 
         //map.openInfoWindow(infoWindow, point); //开启信息窗口
     });
-}
-function getAreaInfo(areaId, typeId) {
-    if (typeId === 1) {
-        $(".check_increase").addClass("check_increase_act");
-        $(".check_decrease").hide();
-        $("#xunshi_check_in").show().siblings().hide();
-        $.ajax({
-            url: '/Home/GetXunShiByAreaId',
-            data: { areaId: areaId },
-            type: 'GET',
-            dataType: 'JSON',
-            success: function (res) {
-                if (res.code === 200) {
-                    $('.xunshi').html(
-                        template('xunshiTpl', { xunshiList: res.data })
-                    );
-                } else {
-                    console.warn(res.msg);
-                }
-            },
-            error: function () {
-                console.log('服务器异常，请配合后端程序使用');
-            }
-        });
-    }
-    else if (typeId === 2) {
-        $(".check_increase").addClass("check_increase_act");
-        $(".check_decrease").hide();
-        $("#muchan_check_in").show().siblings().hide();
-        $.ajax({
-            url: '/Home/GetMuchanByAreaId',
-            data: { areaId: areaId },
-            type: 'GET',
-            dataType: 'JSON',
-            success: function (res) {
-                if (res.code === 200) {
-                    $('.muchan').html(
-                        template('muchanTpl', { muchanList: res.data })
-                    );
-                } else {
-                    console.warn(res.msg);
-                }
-            },
-            error: function () {
-                console.log('服务器异常，请配合后端程序使用');
-            }
-        });
-    }
-    else if (typeId === 3) {
-        $(".check_increase").addClass("check_increase_act");
-        $(".check_decrease").hide();
-        $("#manage_check_in").show().siblings().hide();
-        $.ajax({
-            url: '/Home/GetManageByAreaId',
-            data: { areaId: areaId },
-            type: 'GET',
-            dataType: 'JSON',
-            success: function (res) {
-                if (res.code === 200) {
-                    $('.manage').html(
-                        template('manageTpl', { manageList: res.data })
-                    );
-                } else {
-                    console.warn(res.msg);
-                }
-            },
-            error: function () {
-                console.log('服务器异常，请配合后端程序使用');
-            }
-        });
-    }
-    else if (typeId === 4) {
-        $(".check_increase").addClass("check_increase_act");
-        $(".check_decrease").hide();
-        $("#zhengdi_check_in").show().siblings().hide();
-        $.ajax({
-            url: '/Home/GetZhengDiByAreaId',
-            data: { areaId: areaId },
-            type: 'GET',
-            dataType: 'JSON',
-            success: function (res) {
-                if (res.code === 200) {
-                    $('.zhengdi').html(
-                        template('zhengdiTpl', { zhengdiList: res.data })
-                    );
-                } else {
-                    console.warn(res.msg);
-                }
-            },
-            error: function () {
-                console.log('服务器异常，请配合后端程序使用');
-            }
-        });
-    }
-    else if (typeId === 5) {
-        $(".check_increase").addClass("check_increase_act");
-        $(".check_decrease").hide();
-        $("#shifei_check_in").show().siblings().hide();
-        $.ajax({
-            url: '/Home/GetShiFeiByAreaId',
-            data: { areaId: areaId },
-            type: 'GET',
-            dataType: 'JSON',
-            success: function (res) {
-                if (res.code === 200) {
-                    $('.shifei').html(
-                        template('shifeiTpl', { shifeiList: res.data })
-                    );
-                } else {
-                    console.warn(res.msg);
-                }
-            },
-            error: function () {
-                console.log('服务器异常，请配合后端程序使用');
-            }
-        });
-    }
-    else if (typeId === 6) {
-        $(".check_increase").addClass("check_increase_act");
-        $(".check_decrease").hide();
-        $("#dayao_check_in").show().siblings().hide();
-        $.ajax({
-            url: '/Home/GetDaYaoByAreaId',
-            data: { areaId: areaId },
-            type: 'GET',
-            dataType: 'JSON',
-            success: function (res) {
-                if (res.code === 200) {
-                    $('.dayao').html(
-                        template('dayaoTpl', { dayaoList: res.data })
-                    );
-                } else {
-                    console.warn(res.msg);
-                }
-            },
-            error: function () {
-                console.log('服务器异常，请配合后端程序使用');
-            }
-        });
-    }
 }
 function getCenterPoint(path) {
 

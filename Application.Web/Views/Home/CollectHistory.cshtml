@@ -9,8 +9,10 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+
     <script src="~/Content/js/jquery.js"></script>
     <script src="~/Content/js/artTemplate/template-web.js"></script>
+
     <style>
         ul li {
             list-style: none;
@@ -32,6 +34,34 @@
             clear: both;
             *height: 0;
         }
+        .badge-success {
+            color: #fff;
+            background-color: #11c26d;
+        }
+        .badge-info {
+            color: #fff;
+            background-color: #0bb2d4;
+        }
+        .badge-primary {
+            color: #fff;
+            background-color: #3e8ef7;
+        }
+        .badge-warning {
+            color: #fff;
+            background-color: #eb6709;
+        }
+        .badge-danger {
+            color: #fff;
+            background-color: #ff4c52;
+        }
+        .badge-dark {
+            color: #fff;
+            background-color: #526069;
+        }
+        .badge-default {
+            background-color: #e4eaec;
+            color: #76838f;
+        }
     </style>
     <script>
         function request(keyValue) {
@@ -52,7 +82,7 @@
         $(function () {
             var areaId = request("areaId");
             $.ajax({
-                url: '/Home/GetXunShiByAreaId',
+                url: '/Home/GetDataByAreaId',
                 type: 'GET',
                 data: { areaId: areaId },
                 dataType: 'JSON',
@@ -79,12 +109,13 @@
 <body>
     <div class="history_nr">
         <script id="dataListTpl" type="text/html">
-            <% for(var i = 0; i < dataList.length; i++){ %>
-            <% var item = dataList[i]; %>
+            <% if(dataList.dtXunShi!=null){ %>
+            <% for(var i = 0; i < dataList.dtXunShi.length; i++){ %>
+            <% var item = dataList.dtXunShi[i]; %>
             <div class="box clearfix" style="width: 100%;">
                 <ul class="box-fl" style="width: 38%; float: left;">
                     <li>
-                        <span><%=item.op_date%></span><span>  巡视</span>
+                        <span class="badge badge-success">巡视</span><span style="margin-left:30px;"><%=item.op_date%></span>
                     </li>
                     <li>
                         <textarea rows="3" cols="20" style="width: 220px;height: 80px;">病虫害：<%=item.DIP_name%>
@@ -96,10 +127,144 @@
                     <img src="data:image/jpg;base64,<%= item.Photo1 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
                     <img src="data:image/jpg;base64,<%= item.Photo2 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
                 </div>
-
             </div>
             <% } %>
+            <% } %>
+            <% if(dataList.dtMuChan!=null){ %>
+            <% for(var i = 0; i < dataList.dtMuChan.length; i++){ %>
+            <% var item = dataList.dtMuChan[i]; %>
+            <div class="box clearfix" style="width: 100%;">
+                <ul class="box-fl" style="width: 38%; float: left;">
+                    <li>
+                        <span class="badge badge-info">亩产</span><span style="margin-left:30px;"><%=item.op_date%></span>
+                    </li>
+                    <li>
+                        <textarea rows="3" cols="20" style="width: 220px;height: 80px;">产值：<%=item.chanzhi%>
+产量：<%=item.muchan_count%>
+备注：<%=item.muchan_beizhu%>
+                        </textarea>
+                    </li>
+                </ul>
+                <div style="width: 50%; height: 100px;float: left;margin-top: 25px; ">
+                    <img src="data:image/jpg;base64,<%= item.Photo1 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                    <img src="data:image/jpg;base64,<%= item.Photo2 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                </div>
+            </div>
+            <% } %>
+            <% } %>
+            <% if(dataList.dtManage!=null){ %>
+            <% for(var i = 0; i < dataList.dtManage.length; i++){ %>
+            <% var item = dataList.dtManage[i]; %>
+            <div class="box clearfix" style="width: 100%;">
+                <ul class="box-fl" style="width: 38%; float: left;">
+                    <li>
+                        <span class="badge badge-primary">管理</span><span style="margin-left:30px;"><%=item.op_date%></span>
+                    </li>
+                    <li>
+                        <textarea rows="3" cols="20" style="width: 220px;height: 80px;">管理类型：<%=item.managetype_name%>
+备注：<%=item.manage_beizhu%>
+                        </textarea>
+                    </li>
+                </ul>
+                <div style="width: 50%; height: 100px;float: left;margin-top: 25px; ">
+                    <img src="data:image/jpg;base64,<%= item.Photo1 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                    <img src="data:image/jpg;base64,<%= item.Photo2 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                </div>
+            </div>
+            <% } %>
+            <% } %>
 
+            <% if(dataList.dtZhengDi!=null){ %>
+            <% for(var i = 0; i < dataList.dtZhengDi.length; i++){ %>
+            <% var item = dataList.dtZhengDi[i]; %>
+            <div class="box clearfix" style="width: 100%;">
+                <ul class="box-fl" style="width: 38%; float: left;">
+                    <li>
+                        <span class="badge badge-warning">整地</span><span style="margin-left:30px;"><%=item.op_date%></span>
+                    </li>
+                    <li>
+                        <textarea rows="3" cols="20" style="width: 220px;height: 80px;">整地方式：<%=item.Landrectification_name%>
+备注：<%=item.zhengdi_beizhu%>
+                        </textarea>
+                    </li>
+                </ul>
+                <div style="width: 50%; height: 100px;float: left;margin-top: 25px; ">
+                    <img src="data:image/jpg;base64,<%= item.Photo1 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                    <img src="data:image/jpg;base64,<%= item.Photo2 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                </div>
+            </div>
+            <% } %>
+            <% } %>
+
+            <% if(dataList.dtShiFei!=null){ %>
+            <% for(var i = 0; i < dataList.dtShiFei.length; i++){ %>
+            <% var item = dataList.dtShiFei[i]; %>
+            <div class="box clearfix" style="width: 100%;">
+                <ul class="box-fl" style="width: 38%; float: left;">
+                    <li>
+                        <span class="badge badge-danger">施肥</span><span style="margin-left:30px;"><%=item.op_date%></span>
+                    </li>
+                    <li>
+                        <textarea rows="3" cols="20" style="width: 220px;height: 80px;">肥料名称：<%=item.fertilizer_name%>
+施肥量：<%=item.Applyfertilizer_count%>
+肥料种类：<%=item.fertilizertype_name%>
+备注：<%=item.Applyfertilizer_beizhu%>
+                        </textarea>
+                    </li>
+                </ul>
+                <div style="width: 50%; height: 100px;float: left;margin-top: 25px; ">
+                    <img src="data:image/jpg;base64,<%= item.Photo1 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                    <img src="data:image/jpg;base64,<%= item.Photo2 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                </div>
+            </div>
+            <% } %>
+            <% } %>
+
+            <% if(dataList.dtDaYao!=null){ %>
+            <% for(var i = 0; i < dataList.dtDaYao.length; i++){ %>
+            <% var item = dataList.dtDaYao[i]; %>
+            <div class="box clearfix" style="width: 100%;">
+                <ul class="box-fl" style="width: 38%; float: left;">
+                    <li>
+                        <span class="badge badge-dark">打药</span><span style="margin-left:30px;"><%=item.op_date%></span>
+                    </li>
+                    <li>
+                        <textarea rows="3" cols="20" style="width: 220px;height: 80px;">农药名称：<%=item.Pesticides_name%>
+农药种类：<%=item.Pesticidestype_name%>
+用药量：<%=item.sprayagricultural_count%>
+备注：<%=item.sprayagricultural_beizhu%>
+                        </textarea>
+                    </li>
+                </ul>
+                <div style="width: 50%; height: 100px;float: left;margin-top: 25px; ">
+                    <img src="data:image/jpg;base64,<%= item.Photo1 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                    <img src="data:image/jpg;base64,<%= item.Photo2 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                </div>
+            </div>
+            <% } %>
+            <% } %>
+
+            <% if(dataList.dtCeTu!=null){ %>
+            <% for(var i = 0; i < dataList.dtCeTu.length; i++){ %>
+            <% var item = dataList.dtCeTu[i]; %>
+            <div class="box clearfix" style="width: 100%;">
+                <ul class="box-fl" style="width: 38%; float: left;">
+                    <li>
+                        <span class="badge badge-default">测土</span><span  style="margin-left:30px;"><%=item.op_date%></span>
+                    </li>
+                    <li>
+                        <textarea rows="3" cols="20" style="width: 220px;height: 80px;">元素：氮(<%=item.cetu_N%>)、磷(<%=item.cetu_P%>)、钾(<%=item.cetu_K%>)、有机(<%=item.cetu_youji%>)、PH值(<%=item.cetu_PH%>)、铁(<%=item.cetu_Fe%>)、锰(<%=item.cetu_Mn%>)、铜(<%=item.cetu_Cu%>)、锌(<%=item.cetu_Zn%>)、钼(<%=item.cetu_Mo%>)、钙(<%=item.cetu_Ca%>)、镁(<%=item.cetu_Mg%>)、硫(<%=item.cetu_S%>)、氯(<%=item.cetu_Cl%>)、硅(<%=item.cetu_Si%>)
+备注：<%=item.cetu_beizhu%>
+                        </textarea>
+                    </li>
+                </ul>
+                <div style="width: 50%; height: 100px;float: left;margin-top: 25px; ">
+                    <img src="data:image/jpg;base64,<%= item.Photo1 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                    <img src="data:image/jpg;base64,<%= item.Photo2 %>" style="background: #0BB0BA;width: 45%;height: 100%; display: inline-block;">
+                </div>
+            </div>
+            <% } %>
+            <% } %>
         </script>
 
     </div>

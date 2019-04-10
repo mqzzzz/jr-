@@ -305,75 +305,55 @@ namespace Application.Web.Controllers
         /// </summary>
         /// <param name="areaId"></param>
         /// <returns></returns>
-        public ActionResult GetXunShiByAreaId(int areaId)
+        public ActionResult GetDataByAreaId(int areaId)
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
-                var dt = db.Ado.GetDataTable(@"SELECT op_date,xunshi_beizhu,Photo1,Photo2,tb1.DIP_Id,tb2.DIP_name FROM xunshi tb1 
+                var dtXunShi = db.Ado.GetDataTable(@"SELECT op_date,xunshi_beizhu,Photo1,Photo2,tb1.DIP_Id,tb2.DIP_name,'巡视'as 'type' FROM xunshi tb1 
                                                 join DIP tb2 on tb1.DIP_Id=tb2.DIP_Id 
                                                  WHERE area_ID=@areaId order by op_date desc", new { areaId });
-                return Success(dt);
-            }
-        }
-        /// <summary>
-        /// 获取亩产历史列表（根据区域ID）
-        /// </summary>
-        /// <param name="areaId"></param>
-        /// <returns></returns>
-        public ActionResult GetMuchanByAreaId(int areaId)
-        {
-            using (SqlSugarClient db = new SqlSugarClient(connStr))
-            {
-                var dt = db.Ado.GetDataTable(@"SELECT muchan_count,op_date,muchan_beizhu FROM muchan WHERE area_ID=@areaId order by op_date desc", new { areaId });
-                return Success(dt);
-            }
-        }
-        /// <summary>
-        /// 获取管理历史列表（根据区域ID）
-        /// </summary>
-        /// <param name="areaId"></param>
-        /// <returns></returns>
-        public ActionResult GetManageByAreaId(int areaId)
-        {
-            using (SqlSugarClient db = new SqlSugarClient(connStr))
-            {
-                var dt = db.Ado.GetDataTable(@"SELECT tb1.op_date,manage_beizhu,managetype_name
+
+                var dtMuChan = db.Ado.GetDataTable(@"SELECT muchan_count,op_date,muchan_beizhu,chanzhi,Photo1,Photo2,'亩产' as type
+                                 FROM muchan WHERE area_ID=@areaId order by op_date desc", new { areaId });
+
+                var dtManage = db.Ado.GetDataTable(@"SELECT tb1.op_date,manage_beizhu,managetype_name,Photo1,Photo2
                                               FROM manage tb1 left join managetype tb2
                                               on tb1.managetype_ID=tb2.managetype_ID
                                               where area_ID=@areaId order by op_date desc", new { areaId });
-                return Success(dt);
-            }
-        }
-        /// <summary>
-        /// 获取整地历史列表（根据区域ID）
-        /// </summary>
-        /// <param name="areaId"></param>
-        /// <returns></returns>
-        public ActionResult GetZhengDiByAreaId(int areaId)
-        {
-            using (SqlSugarClient db = new SqlSugarClient(connStr))
-            {
-                var dt = db.Ado.GetDataTable(@"SELECT op_date,Landrectification_name,zhengdi_beizhu 
+
+                var dtZhengDi = db.Ado.GetDataTable(@"SELECT op_date,Landrectification_name,zhengdi_beizhu,Photo1,Photo2,'整地' as type
                                                 FROM zhengdi tb1
                                                 left join Landrectification tb2
                                                 on tb1.Landrectification_ID=tb2.Landrectification_ID
                                                  WHERE area_ID=@areaId order by op_date desc", new { areaId });
-                return Success(dt);
+
+                var dtShiFei = db.Ado.GetDataTable(@"select tb1.Applyfertilizer_count,tb1.Applyfertilizer_beizhu,tb1.Photo1,tb1.Photo2,
+                                                tb1.op_date,
+                                                 tb2.fertilizer_name,tb3.fertilizertype_name,'施肥' as type from  Applyfertilizer tb1
+                                                left join fertilizer tb2
+                                                on tb1.fertilizer_ID=tb2.fertilizer_ID
+                                                left join fertilizertype tb3
+                                                on tb2.fertilizertype_id=tb3.fertilizertype_id
+                                                 where area_ID=@areaId order by op_date desc", new { areaId });
+
+                var dtDaYao = db.Ado.GetDataTable(@"SELECT tb1.op_date,Pesticides_name,Photo1,Photo2,tb3.Pesticidestype_name,sprayagricultural_count
+                                                    ,sprayagricultural_beizhu,'打药' as type
+                                                    FROM sprayagricultural tb1 
+                                                    left join Pesticides tb2
+                                                    on tb1.Pesticides_ID= tb2.Pesticides_ID
+                                                    left join Pesticidestype tb3
+                                                    on tb2.Pesticidestype_id=tb3.Pesticidestype_id
+                                                     where area_ID=@areaId
+                                                    order by op_date desc", new { areaId });
+                var dtCeTu = db.Ado.GetDataTable(@"SELECT *,'测土' as type from cetu
+                                                     where area_ID=@areaId
+                                                    order by op_date desc", new { areaId });
+                var jsonStr = new { dtXunShi, dtMuChan, dtManage, dtZhengDi, dtShiFei, dtDaYao, dtCeTu };
+
+                return Success(jsonStr);
             }
         }
-        /// <summary>
-        /// 获取施肥历史列表（根据区域ID）
-        /// </summary>
-        /// <param name="areaId"></param>
-        /// <returns></returns>
-        public ActionResult GetShiFeiByAreaId(int areaId)
-        {
-            using (SqlSugarClient db = new SqlSugarClient(connStr))
-            {
-                var dt = db.Ado.GetDataTable(@"select op_date from  Applyfertilizer where area_ID=@areaId order by op_date desc", new { areaId });
-                return Success(dt);
-            }
-        }
+
         /// <summary>
         /// 获取打药历史列表（根据区域ID）
         /// </summary>
