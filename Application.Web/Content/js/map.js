@@ -343,12 +343,16 @@ function loadDipArea(areaId, dipId) {
                     points.push("new BMap.Point(" + pointArr[j].split(',')[1] + "," + pointArr[j].split(',')[0] + ")");
                 }
             }
-            page.fun(i, "" + item.area_mubiaojingdu + "," + item.area_mubiaoweidu + "", "" + points.toString() + "", '' + item.Peasant_name + '', '', '' + item.DIP_yanse + '');
+            map.panTo(new BMap.Point(item.area_mubiaojingdu, item.area_mubiaoweidu)); 
+            page.fun(i, "" + item.area_mubiaojingdu + "," + item.area_mubiaoweidu + "", "" + points.toString() + "", '' + item.Peasant_name + '', '' + item.AREA_ID+'', '' + item.DIP_yanse + '');
         }
+
     });
+
 }
 
 function GetTrail(nongjiId) {
+    clearInterval(timer);
     map.clearOverlays();
     $.ajax({
         url: '/Home/GetNongjiTrail?nongjiId=' + nongjiId + '&datetime=' + $("#txt_carDate").val(),

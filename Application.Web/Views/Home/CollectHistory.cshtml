@@ -34,35 +34,54 @@
             clear: both;
             *height: 0;
         }
+
         .badge-success {
             color: #fff;
             background-color: #11c26d;
         }
+
         .badge-info {
             color: #fff;
             background-color: #0bb2d4;
         }
+
         .badge-primary {
             color: #fff;
             background-color: #3e8ef7;
         }
+
         .badge-warning {
             color: #fff;
             background-color: #eb6709;
         }
+
         .badge-danger {
             color: #fff;
             background-color: #ff4c52;
         }
+
         .badge-dark {
             color: #fff;
             background-color: #526069;
         }
+
         .badge-default {
             background-color: #e4eaec;
             color: #76838f;
         }
 
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
     </style>
     <script>
         function request(keyValue) {
@@ -82,6 +101,7 @@
         }
         $(function () {
             var areaId = request("areaId");
+            var loading = top.layer.msg('数据加载中...',{ time: 0 });
             $.ajax({
                 url: '/Home/GetDataByAreaId',
                 type: 'GET',
@@ -97,8 +117,10 @@
                     } else {
                         console.warn(res.msg);
                     }
+                    top.layer.close(loading);
                 },
                 error: function () {
+                    top.layer.close(loading);
                     console.log('服务器异常，请配合后端程序使用');
                 }
             });
@@ -110,6 +132,21 @@
 <body>
     <div class="history_nr">
         <script id="dataListTpl" type="text/html">
+            <div class="alert alert-info" role="alert">
+                姓名：<%=dataList.dtUser[0].Peasant_name%>&nbsp;&nbsp;
+                电话：<%=dataList.dtUser[0].Peasant_tep%>&nbsp;&nbsp;
+                面积：<%=dataList.dtUser[0].region_Mu%>&nbsp;&nbsp;
+                乡镇：<%=dataList.dtUser[0].Peasant_xiang%>&nbsp;&nbsp;
+                村：<%=dataList.dtUser[0].Peasant_cun%>
+            </div>
+            @*<figure class="">
+                                <pre><code class="language-html" data-lang="html">
+                <span class="nt">姓名:<%=dataList.dtUser[0].Peasant_name%></span>
+                                <span class="na">电话:<%=dataList.dtUser[0].Peasant_tep%></span>
+                                <span class="s">"glyphicon glyphicon-search"</span>
+                                <span class="na">aria-hidden=</span><span class="s">"true"</span>
+                                <span class="nt">&gt;&lt;/span&gt;</span></code></pre>
+                            </figure>*@
             <% if(dataList.dtXunShi!=null){ %>
             <% for(var i = 0; i < dataList.dtXunShi.length; i++){ %>
             <% var item = dataList.dtXunShi[i]; %>
@@ -251,7 +288,7 @@
             <div class="box clearfix" style="width: 100%;">
                 <ul class="box-fl" style="width: 42%; float: left;">
                     <li>
-                        <span class="badge badge-default">测土</span><span  style="margin-left:75px;"><%=item.op_date%></span>
+                        <span class="badge badge-default">测土</span><span style="margin-left:75px;"><%=item.op_date%></span>
                     </li>
                     <li>
                         <textarea rows="3" cols="20" style="font-family:微软雅黑;width: 260px;height: 80px;">元素：氮(<%=item.cetu_N%>)、磷(<%=item.cetu_P%>)、钾(<%=item.cetu_K%>)、有机(<%=item.cetu_youji%>)、PH值(<%=item.cetu_PH%>)、铁(<%=item.cetu_Fe%>)、锰(<%=item.cetu_Mn%>)、铜(<%=item.cetu_Cu%>)、锌(<%=item.cetu_Zn%>)、钼(<%=item.cetu_Mo%>)、钙(<%=item.cetu_Ca%>)、镁(<%=item.cetu_Mg%>)、硫(<%=item.cetu_S%>)、氯(<%=item.cetu_Cl%>)、硅(<%=item.cetu_Si%>)

@@ -13,9 +13,10 @@ $(function () {
             } else if (index == 2) {
                 AnQuan();
             } else if (index == 3) {
-                AnQuan();
+                initExpert();
             } else if (index == 4) {
-                user();
+                //user();
+                initNews();
             } else if (index == 5) {
                 manage();
             }
@@ -36,6 +37,98 @@ $(function () {
     });
 
 });
+function initExpert() {
+    $('#table_expert').bootstrapTable({
+        method: "get",
+        striped: true,
+        singleSelect: false,
+        url: '/Home/GetExpertList',
+        dataType: "json",
+        pagination: true, //分页
+        pageNumber: 1,
+        pageSize: 20,
+        search: false, //显示搜索框
+        contentType: "application/x-www-form-urlencoded",
+        idField: "ROWNUM",//指定主键列
+        columns: [
+            {
+                title: "专家姓名",
+                field: 'zhuanjia_name',
+                align: 'center',
+                valign: 'middle'
+            },
+            {
+                title: '性别',
+                field: 'zhuanjia_sex',
+                align: 'center'
+            },
+            {
+                title: '电话',
+                field: 'zhuanjia_dianhua',
+                align: 'center',
+                valign: 'middle'
+            },
+            {
+                title: '工作单位',
+                field: 'zhuanjia_gongzuodanwei',
+                align: 'center',
+                valign: 'middle'
+            },
+
+
+            {
+                title: '地址',
+                field: 'zhuanjia_addr',
+                align: 'center'
+            }
+
+        ]
+    });
+}
+
+function initNews() {
+    $('#table_news').bootstrapTable({
+        method: "get",
+        striped: true,
+        singleSelect: false,
+        url: '/Home/GetNewsList',
+        dataType: "json",
+        pagination: true, //分页
+        pageNumber: 1,
+        pageSize: 20,
+        search: false, //显示搜索框
+        contentType: "application/x-www-form-urlencoded",
+        idField: "ROWNUM",//指定主键列
+        columns: [
+            {
+                title: "新闻标题",
+                field: 'n_title',
+                align: 'center',
+                valign: 'middle'
+            },
+            {
+                title: '内容',
+                field: 'n_content',
+                align: 'center',
+                formatter: function (value, row, index) {
+                    return value;
+                }
+            },
+            {
+                title: '作者',
+                field: 'n_author',
+                align: 'center',
+                valign: 'middle'
+            },
+            {
+                title: '发布时间',
+                field: 'n_date',
+                align: 'center',
+                valign: 'middle'
+            }
+        ]
+    });
+}
 
 function user() {
     //游客来源分析
@@ -3315,9 +3408,9 @@ function AnQuan() {
                 if (result.code === 200) {
                     for (var i = 0; i < result.data.length; i++) {
                         arr.push(
-                             result.data[i].total
+                            result.data[i].total
                         );
-                        arr2.push( result.data[i].Pesticides_name);
+                        arr2.push(result.data[i].Pesticides_name);
                     }
 
                 }

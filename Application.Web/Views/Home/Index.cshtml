@@ -25,9 +25,10 @@
                 <li class="l_left total_chose_fr nav_active">实时监测</li>
                 <li class="l_left total_chose_pl">土地巡视分析</li>
                 <li class="l_left total_chose_pl">统计分析</li>
-                @*<li class="r_right total_chose_pl">统计分析三</li>
-                    <li class="r_right total_chose_pl">统计分析四</li>*@
+                @*<li class="r_right total_chose_pl">统计分析三</li>*@
+
                 <li class="r_right total_chose_pl">专家列表</li>
+                <li class="r_right total_chose_pl">新闻列表</li>
             </ul>
             <div class="total_chose_box" style="display: none;">
                 <div style="height: 32px;"></div>
@@ -232,27 +233,24 @@
                             <div class="city_chose_box display_box" style="display: none">
                                 <div class="display_type_center_box">
                                     <ul class="display_type_inner_box" id="ulCity">
-                                        <li class="display_type_msg"> 北京市</li>
-                                        <li class="display_type_msg">自贡市</li>
-                                        <li class="display_type_msg">攀枝花市</li>
-                                        <li class="display_type_msg">泸州市</li>
-                                        <li class="display_type_msg">德阳市</li>
-                                        <li class="display_type_msg">绵阳市</li>
-                                        <li class="display_type_msg">广元市</li>
-                                        <li class="display_type_msg">遂宁市</li>
-                                        <li class="display_type_msg">内江市</li>
-                                        <li class="display_type_msg">乐山市</li>
-                                        <li class="display_type_msg">南充市</li>
-                                        <li class="display_type_msg">宜宾市</li>
-                                        <li class="display_type_msg">广安市</li>
-                                        <li class="display_type_msg">达州市</li>
-                                        <li class="display_type_msg">巴中市</li>
-                                        <li class="display_type_msg">雅安市</li>
-                                        <li class="display_type_msg">眉山市</li>
-                                        <li class="display_type_msg">资阳市</li>
-                                        <li class="display_type_msg">阿坝州</li>
-                                        <li class="display_type_msg">甘孜州</li>
-                                        <li class="display_type_msg">凉山州</li>
+                                        <li class="display_type_msg"> 郑州市</li>
+                                        <li class="display_type_msg">开封市</li>
+                                        <li class="display_type_msg">洛阳市</li>
+                                        <li class="display_type_msg">平顶山市</li>
+                                        <li class="display_type_msg">安阳市</li>
+                                        <li class="display_type_msg">鹤壁市</li>
+                                        <li class="display_type_msg">新乡市</li>
+                                        <li class="display_type_msg">焦作市</li>
+                                        <li class="display_type_msg">濮阳市</li>
+                                        <li class="display_type_msg">许昌市</li>
+                                        <li class="display_type_msg">漯河市</li>
+                                        <li class="display_type_msg">三门峡市</li>
+                                        <li class="display_type_msg">商丘市</li>
+                                        <li class="display_type_msg">周口市</li>
+                                        <li class="display_type_msg">驻马店市</li>
+                                        <li class="display_type_msg">南阳市</li>
+                                        <li class="display_type_msg">信阳市</li>
+                                        <li class="display_type_msg">济源市</li>
                                     </ul>
                                 </div>
                                 <div class="display_type_funct_box">
@@ -904,6 +902,20 @@
             </div>
 
             <div class="inner" style="display:none">
+                <div class="dataAllBorder02" id="map_title_innerbox">
+                    <div class="map_title_box">
+                        <div class="map_title_innerbox">
+                            <div class="map_title" style="background-image: url(/Content/img/second_title.png);">专家列表</div>
+                        </div>
+                        @*<div>
+                                <select id="selLayer" style="width:100px;">
+                                    <option value="">车辆</option>
+                                    <option value="">企业</option>
+                                </select>
+                            </div>*@
+                    </div>
+                    <table id="table_expert" style="width: 100%;color:#fff;"></table>
+                </div>
                 @*<div class="data_left03">
                         <div class="dataAllNo01 maginS01">
                             <div class="dataAllBorder01">
@@ -978,111 +990,125 @@
             </div>
 
             <div class="inner" style="display: none">
-                <div class="manage_left l_left">
-                    <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
-                    <div class="manage_line1">
-                        <div class="manage_line2">
-                            <div class="manage_top_middle">
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr>
-                                            <td>xxxx总数</td>
-                                            <td colspan="3">25414人</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xxxxx</td>
-                                            <td colspan="3">省内游客</td>
-                                        </tr>
-                                        <tr>
-                                            <td>xxxxx</td>
-                                            <td colspan="3">青年</td>
-                                        </tr>
-                                        <tr>
-                                            <td>男性游客</td>
-                                            <td>5424人</td>
-                                            <td>女性游客</td>
-                                            <td>5457人</td>
-                                        </tr>
-                                        <tr>
-                                            <td>团队游客</td>
-                                            <td>5424人</td>
-                                            <td>散客</td>
-                                            <td>5457人</td>
-                                        </tr>
-                                        <tr>
-                                            <td>同比</td>
-                                            <td>下降5%</td>
-                                            <td>环比</td>
-                                            <td>上升5.6%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <p>xxxxx数据汇总</p>
-                            </div>
-                            <div class="manage_left_top">
-                                <div class="manage_top_left l_left">
-                                    <div id="container2" style="height: 90%"></div>
-                                    <p>xxxxx分析</p>
-                                </div>
-                                <div class="manage_top_left l_left">
-                                    <div id="container1" style="height: 90%"></div>
-                                    <p>xxxx分析</p>
-                                </div>
-                                <div class="manage_top_left l_left">
-                                    <div id="container3" style="height:90%"></div>
-                                    <p>xxxx分析</p>
-                                </div>
+                <div class="dataAllBorder02" id="map_title_innerbox">
+                    <div class="map_title_box">
+                        <div class="map_title_innerbox">
+                            <div class="map_title" style="background-image: url(/Content/img/second_title.png);">新闻列表</div>
+                        </div>
+                        @*<div>
+                    <select id="selLayer" style="width:100px;">
+                        <option value="">车辆</option>
+                        <option value="">企业</option>
+                    </select>
+                </div>*@
+                    </div>
+                    <table id="table_news" style="width: 100%;color:#fff;"></table>
+                </div>
+                @*<div class="manage_left l_left">
+            <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
+            <div class="manage_line1">
+                <div class="manage_line2">
+                    <div class="manage_top_middle">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>xxxx总数</td>
+                                    <td colspan="3">25414人</td>
+                                </tr>
+                                <tr>
+                                    <td>xxxxx</td>
+                                    <td colspan="3">省内游客</td>
+                                </tr>
+                                <tr>
+                                    <td>xxxxx</td>
+                                    <td colspan="3">青年</td>
+                                </tr>
+                                <tr>
+                                    <td>男性游客</td>
+                                    <td>5424人</td>
+                                    <td>女性游客</td>
+                                    <td>5457人</td>
+                                </tr>
+                                <tr>
+                                    <td>团队游客</td>
+                                    <td>5424人</td>
+                                    <td>散客</td>
+                                    <td>5457人</td>
+                                </tr>
+                                <tr>
+                                    <td>同比</td>
+                                    <td>下降5%</td>
+                                    <td>环比</td>
+                                    <td>上升5.6%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>xxxxx数据汇总</p>
+                    </div>
+                    <div class="manage_left_top">
+                        <div class="manage_top_left l_left">
+                            <div id="container2" style="height: 90%"></div>
+                            <p>xxxxx分析</p>
+                        </div>
+                        <div class="manage_top_left l_left">
+                            <div id="container1" style="height: 90%"></div>
+                            <p>xxxx分析</p>
+                        </div>
+                        <div class="manage_top_left l_left">
+                            <div id="container3" style="height:90%"></div>
+                            <p>xxxx分析</p>
+                        </div>
 
-                            </div>
-                            <div class="manage_top_middle">
-                                <div id="container4" style="height: 90%"></div>
-                                <p>xxxx数据分析</p>
-                            </div>
-                            <!--<div class="manage_top_middle l_left">-->
-                            <!--<div id="container5" style="height: 90%"></div>-->
-                            <!--<p>天气——游客数据分析</p>-->
-                            <!--</div>-->
-                        </div>
+                    </div>
+                    <div class="manage_top_middle">
+                        <div id="container4" style="height: 90%"></div>
+                        <p>xxxx数据分析</p>
+                    </div>
+                    <!--<div class="manage_top_middle l_left">-->
+                    <!--<div id="container5" style="height: 90%"></div>-->
+                    <!--<p>天气——游客数据分析</p>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <div class="manage_left l_left">
+            <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
+            <div class="manage_line1">
+                <div class="manage_line2">
+                    <div class="manage_top_middle l_left">
+                        <div id="container9" style="height: 90%"></div>
+                        <p>xxxx情况</p>
+                    </div>
+                    <div class="manage_top_middle l_left">
+                        <div id="container10" style="height: 90%"></div>
+                        <p>xxxx分析</p>
+                    </div>
+                    <div class="manage_top_middle l_left">
+                        <div id="container11" style="height: 90%"></div>
+                        <p>xxxx分析</p>
                     </div>
                 </div>
-                <div class="manage_left l_left">
-                    <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
-                    <div class="manage_line1">
-                        <div class="manage_line2">
-                            <div class="manage_top_middle l_left">
-                                <div id="container9" style="height: 90%"></div>
-                                <p>xxxx情况</p>
-                            </div>
-                            <div class="manage_top_middle l_left">
-                                <div id="container10" style="height: 90%"></div>
-                                <p>xxxx分析</p>
-                            </div>
-                            <div class="manage_top_middle l_left">
-                                <div id="container11" style="height: 90%"></div>
-                                <p>xxxx分析</p>
-                            </div>
-                        </div>
+            </div>
+        </div>
+        <div class="manage_left l_left">
+            <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
+            <div class="manage_line1">
+                <div class="manage_line2">
+                    <div class="manage_top_middle">
+                        <div id="container12" style="height: 90%"></div>
+                        <p>xxxxx排行</p>
+                    </div>
+                    <div class="manage_top_middle">
+                        <div id="container6" style="height: 90%"></div>
+                        <p>xxxx数据分析</p>
+                    </div>
+                    <div class="manage_top_middle l_left">
+                        <div id="container5" style="height: 90%"></div>
+                        <p>xxxxx数据分析</p>
                     </div>
                 </div>
-                <div class="manage_left l_left">
-                    <!--<div class="manage_left_nav"><img src="img/left_nav.png"/></div>-->
-                    <div class="manage_line1">
-                        <div class="manage_line2">
-                            <div class="manage_top_middle">
-                                <div id="container12" style="height: 90%"></div>
-                                <p>xxxxx排行</p>
-                            </div>
-                            <div class="manage_top_middle">
-                                <div id="container6" style="height: 90%"></div>
-                                <p>xxxx数据分析</p>
-                            </div>
-                            <div class="manage_top_middle l_left">
-                                <div id="container5" style="height: 90%"></div>
-                                <p>xxxxx数据分析</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>*@
             </div>
 
             <div class="inner" style="display: none;">

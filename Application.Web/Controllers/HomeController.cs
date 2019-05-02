@@ -15,6 +15,8 @@ namespace Application.Web.Controllers
     public class HomeController : BaseController
     {
         public ConnectionConfig connStr = new ConnectionConfig() { ConnectionString = ConfigurationManager.ConnectionStrings["BaseDb"].ConnectionString, DbType = SqlSugar.DbType.SqlServer, IsAutoCloseConnection = true };
+        public ConnectionConfig connStrNews = new ConnectionConfig() { ConnectionString = ConfigurationManager.ConnectionStrings["NewsDb"].ConnectionString, DbType = SqlSugar.DbType.SqlServer, IsAutoCloseConnection = true };
+
         private string datetime = DateTime.Now.AddDays(-1).ToShortDateString();
         public ActionResult Index()
         {
@@ -216,7 +218,8 @@ namespace Application.Web.Controllers
                                                 area_xiang,
                                                 area_cun,
                                                 DIP_name,
-                                                DIP_yanse 
+                                                DIP_yanse,
+		                                        tb4.Peasant_name
                                                 FROM  
                                                 (SELECT TOP 1000 MIN([xunshi_ID]) AS XUNSHI_ID
                                                   ,MIN([op_date]) AS OP_DATE
@@ -225,7 +228,8 @@ namespace Application.Web.Controllers
                                               FROM xunshi where DIP_Id<>6 
                                               GROUP BY area_ID,DIP_Id   ORDER BY OP_DATE DESC) AS TB1 
                                                 JOIN area TB2 ON TB1.AREA_ID=TB2.area_ID
-                                                JOIN DIP TB3 ON TB1.DIP_ID=TB3.DIP_Id");
+                                                JOIN DIP TB3 ON TB1.DIP_ID=TB3.DIP_Id
+		                                        join Peasant tb4 on tb2.Peasant_ID=tb4.Peasant_ID");
                 return Success(dt);
             }
         }
@@ -247,11 +251,15 @@ namespace Application.Web.Controllers
                                                 tb2.area_ID,
                                                 tb3.area_mubiaojingdu,
                                                 tb3.area_mubiaoweidu,
-                                                area_zuobiao
-                                             FROM project tb1 join projectarea tb2 
+                                                area_zuobiao,
+	                                            tb4.Peasant_name
+                                                FROM project tb1 join projectarea tb2 
                                                 on tb1.project_ID=tb2.project_ID 
-                                             left join area tb3
-                                                on tb2.area_ID=tb3.area_ID where tb1.project_Id=@projectId", new { projectId = projectId });
+                                                 join area tb3
+	                                                on tb2.area_ID=tb3.area_ID
+	                                            left join Peasant tb4
+		                                            on tb3.Peasant_ID=tb4.Peasant_ID
+	                                            where tb1.project_Id=@projectId", new { projectId });
                 return Success(dt);
             }
         }
@@ -309,6 +317,11 @@ namespace Application.Web.Controllers
         {
             using (SqlSugarClient db = new SqlSugarClient(connStr))
             {
+                var dtUser = db.Ado.GetDataTable(@"select tb2.Peasant_name,tb2.Peasant_tep,tb2.Peasant_xiang,tb2.Peasant_cun,tb1.region_Mu from area tb1
+                                                    left join Peasant tb2
+                                                    on tb1.Peasant_ID=tb2.Peasant_ID
+                                                    where area_ID=@areaId", new { areaId });
+
                 var dtXunShi = db.Ado.GetDataTable(@"SELECT op_date,xunshi_beizhu,Photo1,Photo2,tb1.DIP_Id,tb2.DIP_name,'巡视'as 'type' FROM xunshi tb1 
                                                 join DIP tb2 on tb1.DIP_Id=tb2.DIP_Id 
                                                  WHERE area_ID=@areaId order by op_date desc", new { areaId });
@@ -348,7 +361,7 @@ namespace Application.Web.Controllers
                 var dtCeTu = db.Ado.GetDataTable(@"SELECT *,'测土' as type from cetu
                                                      where area_ID=@areaId
                                                     order by op_date desc", new { areaId });
-                var jsonStr = new { dtXunShi, dtMuChan, dtManage, dtZhengDi, dtShiFei, dtDaYao, dtCeTu };
+                var jsonStr = new { dtUser,dtXunShi, dtMuChan, dtManage, dtZhengDi, dtShiFei, dtDaYao, dtCeTu };
 
                 return Success(jsonStr);
             }
@@ -378,6 +391,30 @@ namespace Application.Web.Controllers
                 var dt = db.Ado.GetDataTable(@"SELECT TOP 1 *
                                                 FROM sbpfallT where nongji_ID=@nongjiId order by shebei_date desc",
                                                 new { nongjiId });
+                return Success(dt);
+            }
+        }
+        /// <summary>
+        /// 专家列表
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetExpertList()
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStr))
+            {
+                var dt = db.Ado.GetDataTable(@"SELECT * FROM zhuanjia order by op_date asc");
+                return Success(dt);
+            }
+        }
+        /// <summary>
+        /// 新闻列表
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult GetNewsList()
+        {
+            using (SqlSugarClient db = new SqlSugarClient(connStrNews))
+            {
+                var dt = db.Ado.GetDataTable(@"SELECT * FROM news order by n_date desc");
                 return Success(dt);
             }
         }
